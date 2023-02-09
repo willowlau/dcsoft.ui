@@ -1,0 +1,37 @@
+{
+  "name": "@dcsoft/util",
+  "version": "0.0.1",
+  "author": "杨柳 <53619404@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/willowlau/ng-util"
+  },
+  "homepage": "https://github.com/willowlau/ng-util",
+  "license": "MIT",
+  "keywords": [
+    "util",
+    "antd",
+    "ng-zorro-antd",
+    "angular"
+  ],
+  "scripts": {
+    "ng": "ng",
+    "build": "ng build @dcsoft/util --configuration=production"
+  },
+  "peerDependencies": {
+    "@angular/common": "^15.1.0",
+    "@angular/core": "^15.1.0",
+    "ng-zorro-antd": "^15.0.3",
+    "@delon/abc": "^15.0.1",
+    "@delon/theme": "^15.0.1",
+    "@delon/util": "^15.0.1",
+    "lodash": "~4.17.21",
+    "moment": "~2.29.4",
+    "ngx-tinymce": "^15.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+  }
+}
