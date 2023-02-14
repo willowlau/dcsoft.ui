@@ -20,6 +20,10 @@ export * from "./lib/config/app-config";
 
 //导出dialog
 export * from "./lib/dialog/dialog-options";
+export * from "./lib/config/app-config";
+
+//导出drawer
+export * from "./lib/drawer/drawer-options";
 
 //导出message
 export * from "./lib/message/confirm-options";
@@ -40,9 +44,11 @@ export * from "./lib/base/query-component-base";
 export * from "./lib/base/table-query-component-base";
 export * from "./lib/base/edit-component-base";
 export * from "./lib/base/dialog-edit-component-base";
+export * from "./lib/base/drawer-edit-component-base";
 export * from "./lib/base/table-edit-component-base";
 export * from "./lib/base/tree-table-query-component-base";
 export * from "./lib/base/tree-dialog-edit-component-base";
+export * from "./lib/base/tree-drawer-edit-component-base";
 
 //导出ng-zorro
 export * from "./lib/zorro/table.extend.directive";
@@ -52,6 +58,7 @@ export * from "./lib/zorro/edit-control.directive";
 export * from "./lib/zorro/button.extend.directive";
 export * from "./lib/zorro/validation.extend.directive";
 export * from "./lib/zorro/select.extend.directive";
+export * from "./lib/zorro/radio.extend.directive";
 export * from "./lib/zorro/tree.table.extend.directive";
 export * from "./lib/zorro/tree.extend.directive";
 
@@ -61,3 +68,4 @@ export * from "./lib/tinymce/tinymce.extend.directive";
 //导出util入口
 export * from "./lib/util";
 export * from "./lib/util.module";
+export * from './lib/common/helper';

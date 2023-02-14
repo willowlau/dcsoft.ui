@@ -11,6 +11,7 @@ import { PageList } from "../core/page-list";
 import { FailResult } from "../core/fail-result";
 import { AppConfig, initAppConfig } from '../config/app-config';
 import { I18nKeys } from '../config/i18n-keys';
+import { NzTableSize } from 'ng-zorro-antd/table';
 
 /**
  * NgZorro表格扩展指令
@@ -40,6 +41,10 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
      * 点击行选中列表
      */
     selectedSelection: SelectionModel<TModel>;
+    /**
+    * 表格密码
+    */
+    tableSize: NzTableSize;
     /**
      * 查询延迟
      */
@@ -104,9 +109,10 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
         this.dataSource = new Array<any>();
         this.checkedSelection = new SelectionModel<TModel>(true, []);
         this.selectedSelection = new SelectionModel<TModel>(false, []);
-        this.pageSizeOptions = [];
+        this.pageSizeOptions = config.table.pageSizeOptions;
         this.autoLoad = true;
         this.delay = 500;
+        this.tableSize = 'middle';
     }
 
     /**
@@ -254,10 +260,83 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
     }
 
     /**
-     * 批量删除被选中实体
+     * 删除被选中实体
      * @param options 参数
      */
     delete(options?: {
+        /**
+         * 待删除的Id
+         */
+        id?: string,
+        /**
+         * 服务端删除Api地址
+         */
+        url?: string,
+        /**
+         * 请求前处理函数，返回false则取消提交
+         */
+        before?: () => boolean;
+        /**
+         * 请求成功处理函数
+         */
+        ok?: () => void;
+    }) {
+        options = options || {};
+        let id = options.id;
+        if (!id) {
+            this.util.message.warn(I18nKeys.noDeleteItemSelected);
+            return;
+        }
+        // this.util.message.confirm({
+        //     content: I18nKeys.deleteConfirmation,
+        //     onOk: () => this.deleteRequest(id, options.before, options.ok, options.url)
+        // });
+        this.deleteRequest(id, options.before, options.ok, options.url);
+    }
+
+    /**
+     * 发送删除请求
+     */
+    private async deleteRequest(id?: string, before?: () => boolean, ok?: () => void, url?: string) {
+        url = this.getDeleteUrl(url, id);
+        if (!url)
+            return;
+        await this.util.webapi.delete(url).handleAsync({
+            ok: () => {
+                this.util.message.success(I18nKeys.deleteSuccessed);
+                this.query({
+                    before: before,
+                    ok: result => {
+                        if (result.page <= 1) {
+                            ok && ok();
+                            return;
+                        }
+                        if (result.page > result.pageCount) {
+                            this.query({
+                                page: result.page - 1,
+                                ok: ok
+                            });
+                            return;
+                        }
+                        ok && ok();
+                    }
+                });
+            }
+        });
+    }
+
+    /**
+     * 获取删除Api地址
+     */
+    private getDeleteUrl(url, id) {
+        return url || this.deleteUrl || this.getUrl(this.url, id);
+    }
+
+    /**
+     * 批量删除被选中实体
+     * @param options 参数
+     */
+    deleteBatch(options?: {
         /**
          * 待删除的Id列表，多个Id用逗号分隔，范例：1,2,3
          */
@@ -283,15 +362,15 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
         }
         this.util.message.confirm({
             content: I18nKeys.deleteConfirmation,
-            onOk: () => this.deleteRequest(ids, options.before, options.ok, options.url)
+            onOk: () => this.deleteBatchRequest(ids, options.before, options.ok, options.url)
         });
     }
 
     /**
      * 发送删除请求
      */
-    private async deleteRequest(ids?: string, before?: () => boolean, ok?: () => void, url?: string) {
-        url = this.getDeleteUrl(url);
+    private async deleteBatchRequest(ids?: string, before?: () => boolean, ok?: () => void, url?: string) {
+        url = this.getDeleteBatchUrl(url);
         if (!url)
             return;
         await this.util.webapi.post(url, ids).handleAsync({
@@ -321,7 +400,7 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
     /**
      * 获取删除Api地址
      */
-    private getDeleteUrl(url) {
+    private getDeleteBatchUrl(url) {
         return url || this.deleteUrl || this.getUrl(this.url, "delete");
     }
 
@@ -481,11 +560,25 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
 
     /**
      * 排序
-     * @param order 排序条件
+     *
+     * @param sortParam 排序参数，key为列名，value为升降序
      */
-    sort(order: string) {
-        this.queryParam.order = order;
+    sort(sortParam: any): void {
+        this.queryParam.order = this.getSortKey(sortParam.key, sortParam.value);
         this.query();
+    }
+
+    /**
+     * 获取排序字段
+     */
+    private getSortKey(sortKey: any, sortValue: any): any {
+        if (!sortValue) {
+        return this.order;
+        }
+        if (sortValue === 'ascend') {
+        return sortKey;
+        }
+        return `${sortKey} desc`;
     }
 
     /**

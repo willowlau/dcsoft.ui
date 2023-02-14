@@ -3,8 +3,8 @@
 //Licensed under the MIT license
 //================================================
 import { DES, enc, mode, pad } from "crypto-js";
-import * as _ from "lodash";
-import * as moment from "moment";
+import * as _lodash from "lodash";
+import * as _moment from "moment";
 import { UUID } from "./internal/uuid";
 
 /**
@@ -33,7 +33,7 @@ export let isEmpty = (value): boolean => {
   if (value && value.trim) value = value.trim();
   if (!value) return true;
   if (value === "00000000-0000-0000-0000-000000000000") return true;
-  return _.isEmpty(value);
+  return _lodash.isEmpty(value);
 };
 
 /**
@@ -63,7 +63,7 @@ export let toNumber = (value, precision?, isTruncate?: boolean) => {
  * @param value 输入值
  */
 export let toString = (value: any): string => {
-  return _.toString(value).trim();
+  return _lodash.toString(value).trim();
 };
 
 /**
@@ -111,7 +111,7 @@ export let isEmptyArray = (value: any): boolean => {
  * @param array 数组
  */
 export let first = <T>(array: any): T => {
-  return _.first<T>(array)!;
+  return _lodash.first<T>(array)!;
 };
 
 /**
@@ -120,7 +120,7 @@ export let first = <T>(array: any): T => {
  * @param array 数组
  */
 export let last = <T>(array: any): T => {
-  return _.last<T>(array)!;
+  return _lodash.last<T>(array)!;
 };
 
 /**
@@ -135,7 +135,7 @@ export let uuid = (): string => {
  * @param date 日期
  */
 export let isValidDate = (date: string): boolean => {
-  return moment(getValidDate(date)).isValid();
+  return _moment(getValidDate(date)).isValid();
 };
 
 /**
@@ -143,7 +143,7 @@ export let isValidDate = (date: string): boolean => {
  * @param date 日期，字符串日期范例：2001-01-01
  */
 export let toDate = (date: string): Date => {
-  return moment(getValidDate(date)).toDate();
+  return _moment(getValidDate(date)).toDate();
 };
 
 /**
@@ -201,7 +201,7 @@ export let to = <T>(value: any): T => {
  * @param predicate 条件
  */
 export let remove = <T>(source: Array<T>, predicate: (value: T) => boolean): Array<T> => {
-  return _.remove(source, t => predicate(t));
+  return _lodash.remove(source, t => predicate(t));
 };
 
 /**
@@ -262,7 +262,7 @@ export let toList = <T>(input: string): T[] => {
  * @param property 比较属性
  */
 export let except = <T>(source: T[], target: T[], property?: (t: T) => any): T[] => {
-  return _.differenceBy(getArray(source), getArray(target), property!);
+  return _lodash.differenceBy(getArray(source), getArray(target), property!);
 };
 
 /**
@@ -272,7 +272,7 @@ export let except = <T>(source: T[], target: T[], property?: (t: T) => any): T[]
  * @param comparator 比较器
  */
 export let exceptWith = <T>(source: T[], target: T[], comparator?: (s: any, t: any) => boolean): T[] => {
-  return _.differenceWith(getArray(source), getArray(target), comparator!);
+  return _lodash.differenceWith(getArray(source), getArray(target), comparator!);
 };
 
 /**
@@ -293,7 +293,7 @@ function getArray<T>(array: any): T[] {
  * @param target 目标集合
  */
 export let concat = <T>(source: T[], target: T[]) => {
-  return _.concat(source, target);
+  return _lodash.concat(source, target);
 };
 
 /**
@@ -302,7 +302,7 @@ export let concat = <T>(source: T[], target: T[]) => {
  * @param property 属性
  */
 export let distinct = <T>(source: T[], property?: (t: T) => any) => {
-  return _.uniqBy(source, property!);
+  return _lodash.uniqBy(source, property!);
 };
 
 /**
@@ -311,7 +311,7 @@ export let distinct = <T>(source: T[], property?: (t: T) => any) => {
  * @param length 截断后保留的长度
  */
 export function truncate(input: string, length?: number): string {
-  return _.truncate(input, { length: length! + 3 });
+  return _lodash.truncate(input, { length: length! + 3 });
 }
 
 /**
@@ -338,7 +338,7 @@ export function insert(source: any[], item: any, index?: number): any[] {
  * @param start 要移除的值
  */
 export let trimStart = (value: string, start: string) => {
-  return _.trimStart(value, start);
+  return _lodash.trimStart(value, start);
 };
 
 /**
@@ -347,7 +347,7 @@ export let trimStart = (value: string, start: string) => {
  * @param end 要移除的值
  */
 export let trimEnd = (value: string, end: string) => {
-  return _.trimEnd(value, end);
+  return _lodash.trimEnd(value, end);
 };
 
 /**
@@ -388,7 +388,7 @@ function getHostUrl(url: string, host: string) {
  * @param property 分组属性
  */
 export let groupBy = <T>(source: T[], property?: (t: T) => any): Map<string, T[]> => {
-  let groups = _.groupBy(source, property);
+  let groups = _lodash.groupBy(source, property);
   let result = new Map<string, T[]>();
   for (var key in groups) {
     if (!key) continue;
@@ -406,7 +406,7 @@ export let groupBy = <T>(source: T[], property?: (t: T) => any): Map<string, T[]
  * @param propertyName 属性名称
  */
 export function hasProperty(obj, propertyName: string): boolean {
-  return _.hasIn(obj, propertyName);
+  return _lodash.hasIn(obj, propertyName);
 }
 
 /**
@@ -414,7 +414,7 @@ export function hasProperty(obj, propertyName: string): boolean {
  * @param obj 对象
  */
 export let clone = <T>(obj: T): T => {
-  return _.cloneDeep(obj);
+  return _lodash.cloneDeep(obj);
 };
 
 /**
@@ -423,7 +423,7 @@ export let clone = <T>(obj: T): T => {
  * @param source 源对象
  */
 export let assign = (destination, source) => {
-  return _.assign(destination, source);
+  return _lodash.assign(destination, source);
 };
 
 /**
@@ -439,7 +439,7 @@ export let assign = (destination, source) => {
  * (7) 毫秒: SSS
  */
 export let formatDate = (datetime, format: string = "YYYY-MM-DD HH:mm:ss"): string => {
-  let date = moment(datetime);
+  let date = _moment(datetime);
   if (!date.isValid()) return "";
   return date.format(format);
 };
@@ -486,14 +486,14 @@ export function getExtension(name: string): any {
  * 获取今天日期
  */
 export function getTodayDate(): string {
-  return moment().format('YYYY-MM-DD');
+  return _moment().format('YYYY-MM-DD');
 }
 
 /**
  * 获取当前时间
  */
 export function getDateTime(): string {
-  return moment().format('YYYY-MM-DD HH:mm:ss');
+  return _moment().format('YYYY-MM-DD HH:mm:ss');
 }
 
 /**
@@ -502,7 +502,7 @@ export function getDateTime(): string {
  * @param hour 增加的小时
  */
 export function nowDateTimeAddHour(hour: number): string {
-  return moment().add(hour, 'hours').format('YYYY-MM-DD HH:mm:ss');
+  return _moment().add(hour, 'hours').format('YYYY-MM-DD HH:mm:ss');
 }
 
 /**
@@ -511,7 +511,7 @@ export function nowDateTimeAddHour(hour: number): string {
  * @param hour 增加的小时
  */
 export function nowDateTimeSubHour(hour: number): string {
-  return moment().subtract(hour, 'hours').format('YYYY-MM-DD HH:mm:ss');
+  return _moment().subtract(hour, 'hours').format('YYYY-MM-DD HH:mm:ss');
 }
 
 /**
@@ -520,49 +520,49 @@ export function nowDateTimeSubHour(hour: number): string {
  * @param year 增加的年
  */
 export function nowDateAddYear(year: number): string {
-  return moment().add(year, 'years').format('YYYY-MM-DD');
+  return _moment().add(year, 'years').format('YYYY-MM-DD');
 }
 
 /**
  * 获取本年初日期
  */
-export function getStartOfYear(): moment.Moment {
-  return moment().startOf('year');
+export function getStartOfYear(): _moment.Moment {
+  return _moment().startOf('year');
 }
 
 /**
  * 获取本年末日期
  */
-export function getEndOfYear(): moment.Moment {
-  return moment().endOf('year');
+export function getEndOfYear(): _moment.Moment {
+  return _moment().endOf('year');
 }
 
 /**
  * 获取本月初日期
  */
-export function getStartOfMonth(): moment.Moment {
-  return moment().startOf('month');
+export function getStartOfMonth(): _moment.Moment {
+  return _moment().startOf('month');
 }
 
 /**
  * 获取本月末日期
  */
-export function getEndOfMonth(): moment.Moment {
-  return moment().endOf('month');
+export function getEndOfMonth(): _moment.Moment {
+  return _moment().endOf('month');
 }
 
 /**
  * 获取本周初日期
  */
-export function getStartOfWeek(): moment.Moment {
-  return moment().startOf('week').add(1, 'day');
+export function getStartOfWeek(): _moment.Moment {
+  return _moment().startOf('week').add(1, 'day');
 }
 
 /**
  * 获取本周末日期
  */
-export function getEndOfWeek(): moment.Moment {
-  return moment().endOf('week').add(1, 'day');
+export function getEndOfWeek(): _moment.Moment {
+  return _moment().endOf('week').add(1, 'day');
 }
 
 /**
@@ -573,7 +573,7 @@ export function getEndOfWeek(): moment.Moment {
 export function isBeforeToday(value: Date): boolean {
   const date = formatDate(value);
   const today = formatDate(new Date());
-  return moment(date).isBefore(today);
+  return _moment(date).isBefore(today);
 }
 
 /**
@@ -583,8 +583,8 @@ export function isBeforeToday(value: Date): boolean {
  */
 export function isBeforeTomorrow(value: Date): boolean {
   const date = formatDate(value);
-  const tomorrow = moment().add(1, 'day').format('YYYY-MM-DD');
-  return moment(date).isBefore(tomorrow);
+  const tomorrow = _moment().add(1, 'day').format('YYYY-MM-DD');
+  return _moment(date).isBefore(tomorrow);
 }
 
 /**

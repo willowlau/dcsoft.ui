@@ -34,6 +34,10 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Co
      * 数据
      */
     @Input() data;
+    /**
+     * 加载中
+     */
+    loading: boolean;
 
     /**
      * 初始化组件
@@ -43,6 +47,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Co
         super(injector);
         this.isNew = true;
         this.model = <TViewModel>{};
+        this.loading = false;
     }
 
     /**
@@ -71,10 +76,17 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Co
         if (!id)
             return;
         this.util.webapi.get<TViewModel>(this.getLoadUrl(id)).handle({
+            before: ()=> {
+                this.loading = true;
+                return true;
+            },
             ok: result => {
                 let model = this.toModel(result);
                 this.loadModel(model);
                 this.onLoad(model);
+            },
+            complete: () => {
+              this.loading = false;
             }
         });
     }
@@ -180,12 +192,5 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Co
      */
     back() {
         this.util.router.back();
-    }
-
-    /**
-     * 关闭弹出框
-     */
-    close() {
-        this.util.dialog.close();
     }
 }

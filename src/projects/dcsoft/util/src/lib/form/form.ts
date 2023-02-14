@@ -54,7 +54,15 @@ export class Form {
             return false;
         }
         if ( options.form && !options.form.valid ){
-            console.log( "表单验证未通过" );
+            if(!options.form.valid){
+              Object.values(options.form.controls).forEach(control => {
+                if (control.invalid) {
+                  control.markAsDirty();
+                  control.updateValueAndValidity({ onlySelf: true });
+                }
+              });
+              return false;
+            }
             return false;
         }
         if ( !options.url ) {

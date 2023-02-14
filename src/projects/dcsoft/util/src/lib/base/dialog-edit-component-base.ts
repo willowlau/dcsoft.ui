@@ -53,4 +53,11 @@ export abstract class DialogEditComponentBase<TViewModel extends ViewModel> exte
      */
     protected onSubmit(result) {
     }
+    
+    /**
+     * 关闭弹出框
+     */
+    close(result?: boolean): void {
+      this.util.dialog.close(result);
+    }
 }

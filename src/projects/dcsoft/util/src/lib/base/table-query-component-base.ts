@@ -86,7 +86,22 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
         if (!this.table)
             return;
         this.table.delete({
-            ids: id,
+            id: id,
+            ok: () => {
+                this.onDelete();
+            }
+        });
+    }
+
+    /**
+     * 批量删除
+     * @param ids 标识
+     */
+    deleteBatch(ids?) {
+        if (!this.table)
+            return;
+        this.table.deleteBatch({
+            ids: ids,
             ok: () => {
                 this.onDelete();
             }
@@ -176,5 +191,14 @@ export abstract class TableQueryComponentBase<TViewModel extends ViewModel, TQue
         if (!this.table)
             return null;
         return this.table.getCheckedNode();
+    }
+    
+    /**
+     * 设置表格密度
+     *
+     * @param size 大小
+     */
+    setSise(size: 'middle' | 'default' | 'small'): void {
+      this.table.tableSize = size;
     }
 }

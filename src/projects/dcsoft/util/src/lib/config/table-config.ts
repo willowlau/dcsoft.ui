@@ -23,4 +23,8 @@ export class TableConfig {
      * 树形表格单元格缩进单位宽度,默认值: "20"
      */
     indentUnitWidth?:string;
+    /**
+     * 表格每页数据
+     */
+    pageSizeOptions?: [10,20,30,50,100]
 }

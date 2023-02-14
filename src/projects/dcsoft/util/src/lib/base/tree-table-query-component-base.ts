@@ -119,7 +119,22 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
         if (!this.table)
             return;
         this.table.delete({
-            ids: id,
+            id: id,
+            ok: () => {
+                this.onDelete();
+            }
+        });
+    }
+
+    /**
+     * 批量删除
+     * @param id 标识
+     */
+    deleteBatch(ids?) {
+        if (!this.table)
+            return;
+        this.table.deleteBatch({
+            ids: ids,
             ok: () => {
                 this.onDelete();
             }
@@ -221,6 +236,15 @@ export abstract class TreeTableQueryComponentBase<TViewModel extends TreeViewMod
         if (!this.table)
             return null;
         return this.table.getChecked();
+    }
+
+    /**
+     * 获取勾选的实体列表长度
+     */
+    getCheckedLength(): number {
+        if (!this.table)
+            return 0;
+        return this.table.getCheckedLength();
     }
 
     /**

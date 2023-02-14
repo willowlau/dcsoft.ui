@@ -1,5 +1,5 @@
-//================ utilÄ£¿é ======================
-//Copyright 2023 ºÎÕòÏ«
+//================ utilÄ£ï¿½ï¿½ ======================
+//Copyright 2023 ï¿½ï¿½ï¿½ï¿½Ï«
 //Licensed under the MIT license
 //================================================
 import { NgModule } from '@angular/core';
@@ -10,19 +10,20 @@ import { EditControlDirective } from "./zorro/edit-control.directive";
 import { ButtonExtendDirective } from "./zorro/button.extend.directive";
 import { ValidationExtendDirective } from "./zorro/validation.extend.directive";
 import { SelectExtendDirective } from "./zorro/select.extend.directive";
+import { RadioExtendDirective } from "./zorro/radio.extend.directive";
 import { TreeTableExtendDirective } from "./zorro/tree.table.extend.directive";
 import { TreeExtendDirective } from "./zorro/tree.extend.directive";
 import { TinymceExtendDirective } from "./tinymce/tinymce.extend.directive";
 
 /**
- * utilÄ£¿é
+ * utilÄ£ï¿½ï¿½
  */
 @NgModule({
     declarations: [
         TableExtendDirective,
         EditTableDirective, EditRowDirective, EditControlDirective,
         ButtonExtendDirective,
-        ValidationExtendDirective, SelectExtendDirective,
+        ValidationExtendDirective, SelectExtendDirective, RadioExtendDirective,
         TreeTableExtendDirective, TreeExtendDirective,
         TinymceExtendDirective
     ],
@@ -32,7 +33,7 @@ import { TinymceExtendDirective } from "./tinymce/tinymce.extend.directive";
         TableExtendDirective,
         EditTableDirective, EditRowDirective, EditControlDirective,
         ButtonExtendDirective,
-        ValidationExtendDirective, SelectExtendDirective,
+        ValidationExtendDirective, SelectExtendDirective, RadioExtendDirective,
         TreeTableExtendDirective, TreeExtendDirective,
         TinymceExtendDirective
     ]

@@ -145,8 +145,9 @@ export class Util {
     * 抽屉层操作
     */
     get drawer() {
-        if (!this._drawer)
+        if (!this._drawer) {
             this._drawer = new Drawer(this.ioc);
+        }
         return this._drawer;
     };
 

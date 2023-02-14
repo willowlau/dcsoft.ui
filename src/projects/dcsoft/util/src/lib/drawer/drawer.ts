@@ -4,6 +4,7 @@ import { Ioc } from '../common/ioc';
 import { isUndefined } from '../common/helper';
 import { IDrawerOptions } from './drawer-options';
 
+let drawerRef: NzDrawerRef;
 /**
  * 抽屉层操作
  */
@@ -17,7 +18,7 @@ export class Drawer {
   /**
    * 抽屉引用对象
    */
-  drawerRef: NzDrawerRef;
+  drawerRef1: NzDrawerRef;
   /**
    * 打开抽屉层
    * @param options 抽屉层配置
@@ -29,10 +30,10 @@ export class Drawer {
     }
     this.initOptions(options);
     let drawer: NzDrawerService = this.getModalService();
-    this.drawerRef = drawer.create(this.toOptions(options));
-    this.drawerRef.afterOpen.subscribe(() => options?.onOpen && options?.onOpen());
-    this.drawerRef.afterClose.subscribe(result => options?.onClose && options?.onClose(result));
-    return this.drawerRef;
+    drawerRef = drawer.create(this.toOptions(options));
+    drawerRef.afterOpen.subscribe(() => options?.onOpen && options?.onOpen());
+    drawerRef.afterClose.subscribe(result => options?.onClose && options?.onClose(result));
+    return drawerRef;
   }
 
   /**
@@ -73,7 +74,7 @@ export class Drawer {
    * 关闭所有抽屉层
    */
   closeAll(): void {
-    this.drawerRef.close();
+    drawerRef.close();
   }
 
   /**
@@ -82,6 +83,6 @@ export class Drawer {
    * @param result 返回结果
    */
   close(result?: any): void {
-    this.drawerRef.close(result);
+    drawerRef.close(result);
   }
 }
