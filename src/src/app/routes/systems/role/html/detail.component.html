@@ -1,0 +1,16 @@
+<!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">角色详情</div>
+</div> -->
+<div class="modal-body">
+  <nz-descriptions [nzBordered]="true" [nzColumn]="1">
+    <nz-descriptions-item nzTitle="{{'app.systems.role.column.code'|i18n}}">{{ model.code }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.role.column.name'|i18n}}">{{ model.name }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.role.column.type'|i18n}}">{{ model.type }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.role.admin'|i18n}}"><i *ngIf="model.isAdmin" nz-icon nzType="check"></i><i *ngIf="!model.isAdmin"
+        nz-icon nzType="close"></i></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.role.column.enabled'|i18n}}"><i *ngIf="model.enabled" nz-icon nzType="check"></i><i *ngIf="!model.enabled"
+        nz-icon nzType="close"></i></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.role.column.creationTime'|i18n}}">{{ model.creationTime }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.role.column.remark'|i18n}}">{{ model.remark }}</nz-descriptions-item>
+  </nz-descriptions>
+</div>

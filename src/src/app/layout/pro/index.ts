@@ -22,6 +22,7 @@ import { LayoutProWidgetSearchComponent } from './components/search/search.compo
 import { LayoutProWidgetUserComponent } from './components/user/user.component';
 import { LayoutProHeaderWidgetComponent } from './components/widget/widget.component';
 import { LayoutProWidgetQuickPanelComponent } from './components/quick/quick-panel.component';
+import { LayoutProFullScreenComponent } from './components/fullscreen/fullscreen.component';
 import { ProSettingDrawerComponent } from './setting-drawer/setting-drawer.component';
 
 const PRO_WIDGETS = [
@@ -32,7 +33,8 @@ const PRO_WIDGETS = [
   LayoutProWidgetQuickComponent,
   LayoutProWidgetQuickChatComponent,
   LayoutProWidgetQuickChatStatusComponent,
-  LayoutProWidgetRTLComponent
+  LayoutProWidgetRTLComponent,
+  LayoutProFullScreenComponent
 ];
 
 // #endregion

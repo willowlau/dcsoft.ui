@@ -10,6 +10,7 @@ import { UtilModule } from '@dcsoft/util';
 
 import { SHARED_DELON_MODULES } from './shared-delon.module';
 import { SHARED_ZORRO_MODULES } from './shared-zorro.module';
+import { SHARED_PIPES_MODULES } from './shared-pipes.module';
 
 // #region third libs
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -39,6 +40,8 @@ const MODULES = [
   MouseFocusModule,
   ScrollbarModule,
   StatusLabelModule,
+  IconSelectModule,
+  AngularSplitModule,
   ...PRO_SHARED_MODULES
 ];
 // #endregion
@@ -52,8 +55,6 @@ const MODULES = [
     AlainThemeModule.forChild(),
     DelonACLModule,
     DelonFormModule,
-    IconSelectModule,
-    AngularSplitModule,
     NgxAmapModule.forRoot({
       apiKey: 'e69fd06bb5aebe03ee3990b7c6138dde', //webapi 1de0380a8ffe2107149cf48db3d93107
       apiVersion: '1.4.15'
@@ -64,6 +65,7 @@ const MODULES = [
     // third libs
     ...THIRDMODULES
   ],
+  declarations: [...SHARED_PIPES_MODULES],
   exports: [
     CommonModule,
     FormsModule,
@@ -75,9 +77,10 @@ const MODULES = [
     // i18n
     ...SHARED_DELON_MODULES,
     ...SHARED_ZORRO_MODULES,
+    ...SHARED_PIPES_MODULES,
     ...MODULES,
     // third libs
     ...THIRDMODULES
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

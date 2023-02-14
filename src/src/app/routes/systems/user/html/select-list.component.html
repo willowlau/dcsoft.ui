@@ -1,0 +1,72 @@
+<div class="modal-header">
+  <div class="modal-title" backdrop="static">选择用户</div>
+</div>
+<div class="modal-body">
+  <form autocomplete="off" class="search__form" nz-form nzLayout="inline">
+    <div nz-row [nzGutter]="32">
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.user.column.userName' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <input name="userName" placeholder="{{'app.systems.user.column.userName' | i18n}}" nz-input
+              [(ngModel)]="queryParam.userName" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.user.column.phoneNumber' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <input name="phoneNumber" placeholder="{{'app.systems.user.column.phoneNumber' | i18n}}" nz-input
+              [(ngModel)]="queryParam.phoneNumber" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <button #btnQuery type="button" (click)="query(btnQuery)" nz-button nzType="primary">
+          <i nz-icon nzType="search"></i>{{'util.query'|i18n}}
+        </button>
+        <button #btnRefresh type="button" (click)="refresh(btnRefresh)" nz-button>
+          <i nz-icon nzType="sync"></i>{{'util.refresh'|i18n}}
+        </button>
+      </div>
+    </div>
+  </form>
+  <nz-table #table="xTableExtend" x-table-extend url="systems/user" (nzPageIndexChange)="table.pageIndexChange($event)"
+    order="CreationTime desc" [(queryParam)]="queryParam" (nzPageSizeChange)="table.pageSizeChange($event)"
+    [(nzPageIndex)]="table.queryParam.page" [(nzPageSize)]="table.queryParam.pageSize" [nzData]="table.dataSource"
+    [nzFrontPagination]="false" [nzLoading]="table.loading" [nzSize]="table.tableSize" [nzShowPagination]="true"
+    [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" [nzShowTotal]="tableTotalDescriptionTpl"
+    [nzTotal]="table.total" [nzPageSizeOptions]="table.pageSizeOptions">
+    <thead (nzSortOrderChange)="table.sort($event)">
+      <tr>
+        <th (nzCheckedChange)="table.masterToggle()" [nzWidth]="table.config.table.checkboxWidth"
+          [nzChecked]="table.isMasterChecked()" [nzDisabled]="!table.dataSource.length"
+          [nzIndeterminate]="table.isMasterIndeterminate()" [nzShowCheckbox]="true">
+        </th>
+        <th [nzWidth]="table.config.table.lineNumberWidth">#</th>
+        <th>{{'app.systems.user.column.userName' | i18n}}</th>
+        <th>{{'app.systems.user.column.phoneNumber' | i18n}}</th>
+        <th>{{'app.systems.user.column.email' | i18n}}</th>
+        <th>{{'app.systems.user.column.enabled' | i18n}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of table.dataSource;index as index">
+        <td (click)="$event.stopPropagation()" (nzCheckedChange)="table.toggle(row)" [nzChecked]="table.isChecked(row)"
+          [nzShowCheckbox]="true">
+        </td>
+        <td>{{ row.lineNumber }}</td>
+        <td>{{ row.userName }}</td>
+        <td>{{ row.phoneNumber }}</td>
+        <td>{{ row.email }}</td>
+        <td>
+          <nz-tag *ngIf="row.enabled" nzColor="green">{{'util.enable'|i18n}}</nz-tag>
+          <nz-tag *ngIf="!row.enabled" nzColor="red">{{'util.disable'|i18n}}</nz-tag>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <ng-template #tableTotalDescriptionTpl let-range="range" let-total>{{
+    'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}</ng-template>
+</div>

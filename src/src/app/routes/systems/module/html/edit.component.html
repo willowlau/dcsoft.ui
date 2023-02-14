@@ -1,0 +1,135 @@
+<form nz-form #form="ngForm" autocomplete="off" [nzLayout]="'vertical'">
+  <!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">编辑模块</div>
+  </div> -->
+  <nz-spin *ngIf="loading" class="modal-spin"></nz-spin>
+  <div *ngIf="!loading" class="modal-body">
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">{{'app.systems.module.column.applicationName'|i18n}}</nz-form-label>
+          <nz-form-control [nzSpan]="18">
+            <span>{{ applicationName }}</span>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="6">{{'app.systems.module.column.type'|i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-radio-group [(ngModel)]="model.type" [nzButtonStyle]="'solid'" [ngModelOptions]="{ standalone: true }">
+              <label nz-radio-button nzValue="1">{{'app.systems.module.button.menu'|i18n}}</label>
+              <label nz-radio-button nzValue="2">{{'app.systems.module.button.action'|i18n}}</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.module.column.parentName'|i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_parentName">
+            <nz-tree-select #x_parentName="xTreeExtend" #v_parentName="xValidationExtend" x-validation-extend
+              (nzExpandChange)="x_parentName.expandChange($event)" name="parentId" nzVirtualHeight="300px"
+              order="SortId" url="systems/module/tree?ApplicationId={{ applicationId }}" x-tree-extend
+              [(ngModel)]="model.parentId" [(queryParam)]="queryParam" [loadKeys]="model.parentId"
+              [nzDefaultExpandAll]="true" [nzNodes]="x_parentName.dataSource">
+            </nz-tree-select>
+            <ng-template #vt_parentName>{{v_parentName.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.module.column.name' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_name">
+            <input #v_name="xValidationExtend" name="name" nz-input x-validation-extend
+              displayName="app.systems.module.column.name" placeholder="{{'app.systems.module.column.name' | i18n}}"
+              [(ngModel)]="model.name" [maxlength]="128" [required]="true" />
+            <ng-template #vt_name>{{v_name.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.module.column.uri' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <input #v_url="xValidationExtend" name="url" nz-input x-validation-extend
+              displayName="app.systems.module.column.uri" placeholder="{{'app.systems.module.column.uri' | i18n}}"
+              [(ngModel)]="model.url" [maxlength]="256" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col *ngIf="model.type == 1" nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.module.icon' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+              <input type="text" name="icon" #icon nz-input placeholder="{{'app.systems.module.icon' | i18n}}"
+                [(ngModel)]="model.icon" />
+            </nz-input-group>
+            <ng-template #suffixIconButton>
+              <button nz-button nzType="primary" nzSearch (click)="selectIcon(icon)"><span nz-icon
+                  nzType="search"></span></button>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col *ngIf="model.type == '2'" nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.module.method'|i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-radio-group [(ngModel)]="model.method" [nzButtonStyle]="'solid'"
+              [ngModelOptions]="{ standalone: true }">
+              <label nz-radio-button nzValue="Get">Get</label>
+              <label nz-radio-button nzValue="Post">Post</label>
+              <label nz-radio-button nzValue="Put">Put</label>
+              <label nz-radio-button nzValue="Delete">Delete</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="6" nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.module.column.sortId' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_sortId">
+            <nz-input-number name="sortId" #v_sortId="xValidationExtend" x-validation-extend
+              displayName="app.systems.module.column.sortId" [(ngModel)]="model.sortId" [nzMin]="1" [nzStep]="1"
+              [required]="true" />
+            <ng-template #vt_sortId>{{v_sortId.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="6" nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.module.column.enabled' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-switch name="enabled" [(ngModel)]="model.enabled"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.module.column.remark' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <textarea name="remark" placeholder="{{'app.systems.module.column.remark' | i18n}}" nz-input
+              [(ngModel)]="model.remark" maxlength="512"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </div>
+
+  <div class="drawer-footer">
+    <button #btnCancel type="button" (click)="close()" nz-button>{{'util.cancel'|i18n}}</button>
+    <button #btnSubmit type="submit" (click)="submit(btnSubmit, form)" nz-button
+      nzType="primary">{{'util.ok'|i18n}}</button>
+  </div>
+</form>

@@ -1,0 +1,56 @@
+<form nz-form #form="ngForm" autocomplete="off" [nzLayout]="'vertical'">
+  <!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">编辑声明</div>
+  </div> -->
+  <nz-spin *ngIf="loading" class="modal-spin"></nz-spin>
+  <div *ngIf="!loading" class="modal-content">
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.claim.column.name' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_name">
+            <input #v_name="xValidationExtend" name="name" nz-input x-validation-extend
+              displayName="app.systems.claim.column.name" placeholder="{{'app.systems.claim.column.name' | i18n}}"
+              [(ngModel)]="model.name" [maxlength]="64" [required]="true" />
+            <ng-template #vt_name>{{v_name.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="6" nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.claim.column.sortId' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_sortId">
+            <nz-input-number name="sortId" #v_sortId="xValidationExtend" x-validation-extend
+              displayName="app.systems.claim.column.sortId" [(ngModel)]="model.sortId" [nzMin]="1" [nzStep]="1"
+              [required]="true" />
+            <ng-template #vt_sortId>{{v_sortId.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="6" nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.claim.column.enabled' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-switch name="enabled" [(ngModel)]="model.enabled"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.claim.column.remark' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <textarea name="remark" placeholder="{{'app.systems.claim.column.remark' | i18n}}" nz-input
+              [(ngModel)]="model.remark" maxlength="512"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </div>
+  <div class="drawer-footer">
+    <button #btnCancel type="button" (click)="close()" nz-button>{{'util.cancel'|i18n}}</button>
+    <button #btnSubmit type="submit" (click)="submit(btnSubmit, form)" nz-button
+      nzType="primary">{{'util.ok'|i18n}}</button>
+  </div>
+</form>

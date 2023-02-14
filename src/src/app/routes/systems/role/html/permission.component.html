@@ -1,0 +1,63 @@
+<div class="modal-header">
+  <div class="modal-title" backdrop="static">{{'app.systems.role.button.permissionsTooltip'|i18n}}</div>
+</div>
+<div class="modal-body">
+  <nz-alert class="mb-md" nzType="info" [nzMessage]="currentRoleTpl" [nzShowIcon]="true">
+    <ng-template #currentRoleTpl>
+      {{'app.systems.role.applicationName'|i18n}}
+      <strong class="text-primary mx-md"> {{ model.applicationName }}</strong>
+      {{'app.systems.role.column.name'|i18n}}
+      <strong class="text-primary mx-md">: {{ model.roleName }}</strong>
+    </ng-template>
+  </nz-alert>
+  <div class="h560">
+    <as-split direction="horizontal" unit="percent" [gutterSize]="7" class="h100p">
+      <as-split-area [size]="30">
+        <app-application-select (onClick)="selectApplication($event)"></app-application-select>
+      </as-split-area>
+      <as-split-area [size]="70">
+        <nz-table #table="xTreeTableExtend" (nzPageIndexChange)="table.pageIndexChange($event)"
+          [nzScroll]="{ y: '500px' }" (nzPageSizeChange)="table.pageSizeChange($event)" loadMode="0"
+          order="CreationTime desc" url="systems/module/permission" x-tree-table-extend=""
+          [(nzPageIndex)]="table.queryParam.page" [(nzPageSize)]="table.queryParam.pageSize" [(queryParam)]="queryParam"
+          [isExpandAll]="true" [nzData]="table.dataSource" [nzFrontPagination]="false" [nzLoading]="table.loading"
+          [nzShowPagination]="false" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
+          [nzShowTotal]="tableTotalDescriptionTpl" [nzTotal]="table.total">
+          <thead>
+            <tr>
+              <th nzWidth="200px"><label (nzCheckedChange)="table.masterToggle()" nz-checkbox
+                  [nzChecked]="table.isMasterChecked()"
+                  [nzIndeterminate]="table.isMasterIndeterminate()">{{'app.systems.role.moduleName'|i18n}}</label>
+              </th>
+              <th>{{'app.systems.role.action'|i18n}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let row of table.dataSource;index as index">
+              <tr *ngIf="table.isShow(row)">
+                <td (nzExpandChange)="table.collapse(row,$event)" [nzExpand]="table.isExpand(row)"
+                  [nzIndentSize]="row.level*table.config.table.indentUnitWidth" [nzShowExpand]="!table.isLeaf(row)">
+                  <label (nzCheckedChange)="table.toggle(row)" nz-checkbox [nzChecked]="table.isChecked(row)"
+                    [nzIndeterminate]="table.isIndeterminate(row)">{{row.name}}</label>
+                </td>
+                <td>
+                  <nz-checkbox-wrapper class="w100p">
+                    <nz-row>
+                      <div nz-col nzSpan="6" *ngFor="let oper of root.operators">
+                        <label [ngModel]="oper.checked" (ngModelChange)="operCheckedChange($event, oper)" nz-checkbox>{{
+                          oper.name
+                          }}</label>
+                      </div>
+                    </nz-row>
+                  </nz-checkbox-wrapper>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </nz-table>
+        <ng-template #tableTotalDescriptionTpl let-range="range" let-total>{{
+          'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}</ng-template>
+      </as-split-area>
+    </as-split>
+  </div>
+</div>

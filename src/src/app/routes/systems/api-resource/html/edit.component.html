@@ -1,0 +1,91 @@
+<form nz-form #form="ngForm" autocomplete="off" [nzLayout]="'vertical'">
+  <!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">编辑Api资源</div>
+  </div> -->
+  <nz-spin *ngIf="loading" class="modal-spin"></nz-spin>
+  <div *ngIf="!loading" class="modal-body">
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.api-resource.column.uri' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_uri">
+            <input #v_uri="xValidationExtend" name="uri" nz-input x-validation-extend
+              displayName="app.systems.api-resource.column.uri"
+              placeholder="{{'app.systems.api-resource.column.uri' | i18n}}" [(ngModel)]="model.uri" [maxlength]="256"
+              [required]="true" />
+            <ng-template #vt_uri>{{v_uri.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.api-resource.column.name' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_name">
+            <input #v_name="xValidationExtend" name="name" nz-input x-validation-extend
+              displayName="app.systems.api-resource.column.name"
+              placeholder="{{'app.systems.api-resource.column.name' | i18n}}" [(ngModel)]="model.name"
+              [required]="true" />
+            <ng-template #vt_name>{{v_uri.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.api-resource.column.claimsDisplay' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-select #claims="xSelectExtend" name="claims" x-select-extend [(ngModel)]="model.claims" url="systems/claim/all" nzMode="tags">
+              <ng-container *ngIf="!claims.isGroup">
+                <nz-option *ngFor="let item of claims.options" [nzDisabled]="item.disabled" [nzLabel]="item.text"
+                  [nzValue]="item.value"></nz-option>
+              </ng-container>
+              <ng-container *ngIf="claims.isGroup">
+                <nz-option-group *ngFor="let group of claims.optionGroups" [nzLabel]="group.text">
+                  <nz-option *ngFor="let item of group.value" [nzDisabled]="item.disabled" [nzLabel]="item.text"
+                    [nzValue]="item.value"></nz-option>
+                </nz-option-group>
+              </ng-container>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="6" nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.api-resource.column.sortId' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_sortId">
+            <nz-input-number name="sortId" #v_sortId="xValidationExtend" x-validation-extend
+              displayName="app.systems.api-resource.column.sortId" [(ngModel)]="model.sortId" [nzMin]="1" [nzStep]="1"
+              [required]="true" />
+            <ng-template #vt_sortId>{{v_sortId.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="6" nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.api-resource.column.enabled' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-switch name="enabled" [(ngModel)]="model.enabled"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.api-resource.column.remark' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <textarea name="remark" placeholder="{{'app.systems.api-resource.column.remark' | i18n}}" nz-input [(ngModel)]="model.remark" maxlength="512"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </div>
+  <div class="drawer-footer">
+    <button #btnCancel type="button" (click)="close()" nz-button>{{'util.cancel'|i18n}}</button>
+    <button #btnSubmit type="submit" (click)="submit(btnSubmit, form)" nz-button
+      nzType="primary">{{'util.ok'|i18n}}</button>
+  </div>
+</form>

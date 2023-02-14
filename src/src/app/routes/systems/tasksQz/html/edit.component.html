@@ -1,0 +1,150 @@
+<form nz-form #form="ngForm" autocomplete="off" [nzLayout]="'vertical'">
+  <!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">编辑任务</div>
+  </div> -->
+  <nz-spin *ngIf="loading" class="modal-spin"></nz-spin>
+  <div *ngIf="!loading" class="modal-body">
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.tasks-qz.column.name' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_name">
+            <input #v_name="xValidationExtend" name="name" nz-input x-validation-extend
+              displayName="app.systems.tasks-qz.column.name"
+              placeholder="{{'app.systems.tasks-qz.column.name' | i18n}}" [(ngModel)]="model.name"
+              [maxlength]="64" [required]="true" />
+            <ng-template #vt_name>{{v_name.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.tasks-qz.column.jobGroup' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_jobGroup">
+            <input #v_jobGroup="xValidationExtend" name="jobGroup" nz-input x-validation-extend
+              displayName="app.systems.tasks-qz.column.jobGroup"
+              placeholder="{{'app.systems.tasks-qz.column.jobGroup' | i18n}}" [(ngModel)]="model.jobGroup"
+              [maxlength]="256" [required]="true" />
+            <ng-template #vt_jobGroup>{{v_jobGroup.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.tasks-qz.column.cron' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <input name="cron" nz-input placeholder="{{'app.systems.tasks-qz.column.cron' | i18n}}"
+              [(ngModel)]="model.cron" [maxlength]="256" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.tasks-qz.column.assemblyName' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_assemblyName">
+            <input #v_assemblyName="xValidationExtend" name="assemblyName" nz-input x-validation-extend
+              displayName="app.systems.tasks-qz.column.assemblyName"
+              placeholder="{{'app.systems.tasks-qz.column.assemblyName' | i18n}}" [(ngModel)]="model.assemblyName"
+              [maxlength]="256" [required]="true" />
+            <ng-template #vt_assemblyName>{{v_assemblyName.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.tasks-qz.column.className' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_className">
+            <input #v_className="xValidationExtend" name="className" nz-input x-validation-extend
+              displayName="app.systems.tasks-qz.column.className"
+              placeholder="{{'app.systems.tasks-qz.column.className' | i18n}}" [(ngModel)]="model.className"
+              [maxlength]="256" [required]="true" />
+            <ng-template #vt_className>{{v_className.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.tasks-qz.column.jobParams' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <input name="jobParams" nz-input placeholder="{{'app.systems.tasks-qz.column.jobParams' | i18n}}"
+              [(ngModel)]="model.jobParams" [maxlength]="256" />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.tasks-qa.column.runTime' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-range-picker name="runTime" [(ngModel)]="runTime"></nz-range-picker>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="8" nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.tasks-qa.column.triggerType' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-select #triggerType="xSelectExtend" name="triggerType" x-select-extend
+              [(ngModel)]="queryParam.triggerType" [data]="triggerTypes">
+              <ng-container *ngIf="!triggerType.isGroup">
+                <nz-option *ngFor="let item of triggerType.options" [nzDisabled]="item.disabled" [nzLabel]="item.text"
+                  [nzValue]="item.value"></nz-option>
+              </ng-container>
+              <ng-container *ngIf="triggerType.isGroup">
+                <nz-option-group *ngFor="let group of triggerType.optionGroups" [nzLabel]="group.text">
+                  <nz-option *ngFor="let item of group.value" [nzDisabled]="item.disabled" [nzLabel]="item.text"
+                    [nzValue]="item.value"></nz-option>
+                </nz-option-group>
+              </ng-container>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="8" nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.tasks-qa.column.intervalSecond' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_intervalSecond">
+            <nz-input-number name="intervalSecond" #v_intervalSecond="xValidationExtend" x-validation-extend
+              displayName="app.systems.tasks-qz.column.intervalSecond" [(ngModel)]="model.intervalSecond" [nzMin]="1"
+              [nzStep]="1" [required]="true" />
+            <ng-template #vt_intervalSecond>{{v_intervalSecond.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="8" nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.tasks-qz.column.sortId' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_sortId">
+            <nz-input-number name="sortId" #v_sortId="xValidationExtend" x-validation-extend
+              displayName="app.systems.tasks-qz.column.sortId" [(ngModel)]="model.sortId" [nzMin]="1" [nzStep]="1"
+              [required]="true" />
+            <ng-template #vt_sortId>{{v_sortId.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.tasks-qz.column.remark' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <textarea name="remark" placeholder="{{'app.systems.tasks-qz.column.remark' | i18n}}" nz-input
+              [(ngModel)]="model.remark" maxlength="512"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </div>
+  <div class="drawer-footer">
+    <button #btnCancel type="button" (click)="close()" nz-button>{{'util.cancel'|i18n}}</button>
+    <button #btnSubmit type="submit" (click)="submit(btnSubmit, form)" nz-button
+      nzType="primary">{{'util.ok'|i18n}}</button>
+  </div>
+</form>

@@ -1,0 +1,107 @@
+<form nz-form #form="ngForm" autocomplete="off" [nzLayout]="'vertical'">
+  <!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">编辑应用程序</div>
+  </div> -->
+  <nz-spin *ngIf="loading" class="modal-spin"></nz-spin>
+  <div *ngIf="!loading" class="modal-body">
+    <nz-row [nzGutter]="16">
+      <nz-form-item>
+        <nz-form-label [nzRequired]="true">{{'app.systems.application.column.applicationType' | i18n}}</nz-form-label>
+        <nz-form-control [nzErrorTip]="vt_applicationType">
+          <nz-radio-group #applicationType="xRadioExtend" name="applicationType" x-radio-extend
+            displayName="app.systems.application.column.applicationType" [(ngModel)]="model.applicationType"
+            nzButtonStyle="solid" [data]="applicationTypes">
+            <label nz-radio-button *ngFor="let item of applicationType.options"
+              [nzValue]="item.value">{{item.text}}</label>
+          </nz-radio-group>
+          <ng-template #vt_applicationType>{{vt_applicationType.getErrorMessage()}}</ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.application.column.code' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_code">
+            <input #v_code="xValidationExtend" name="code" nz-input x-validation-extend
+              displayName="app.systems.application.column.code"
+              placeholder="{{'app.systems.application.column.code' | i18n}}" [(ngModel)]="model.code" [maxlength]="64"
+              [required]="true" />
+            <ng-template #vt_code>{{v_code.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.application.column.name' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_name">
+            <input #v_name="xValidationExtend" name="name" nz-input x-validation-extend
+              displayName="app.systems.application.column.name"
+              placeholder="{{'app.systems.application.column.name' | i18n}}" [(ngModel)]="model.name" [maxlength]="256"
+              [required]="true" />
+            <ng-template #vt_name>{{v_name.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.application.column.allowedScopes' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-select #allowedScopes="xSelectExtend" name="allowedScopes" x-select-extend
+              [(ngModel)]="model.allowedScopes" url="systems/claim/all" nzMode="tags">
+              <ng-container *ngIf="!allowedScopes.isGroup">
+                <nz-option *ngFor="let item of allowedScopes.options" [nzDisabled]="item.disabled" [nzLabel]="item.text"
+                  [nzValue]="item.value"></nz-option>
+              </ng-container>
+              <ng-container *ngIf="allowedScopes.isGroup">
+                <nz-option-group *ngFor="let group of allowedScopes.optionGroups" [nzLabel]="group.text">
+                  <nz-option *ngFor="let item of group.value" [nzDisabled]="item.disabled" [nzLabel]="item.text"
+                    [nzValue]="item.value"></nz-option>
+                </nz-option-group>
+              </ng-container>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="8" nzMd="8" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.application.column.accessTokenLifetime' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_accessTokenLifetime">
+            <nz-input-number name="accessTokenLifetime" #v_accessTokenLifetime="xValidationExtend" x-validation-extend
+              displayName="app.systems.application.column.accessTokenLifetime" [(ngModel)]="model.accessTokenLifetime" [nzMin]="1" [nzStep]="1"
+              [required]="true" />
+            <ng-template #vt_accessTokenLifetime>{{v_accessTokenLifetime.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.application.column.enabled' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-switch name="enabled" [(ngModel)]="model.enabled"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.application.column.remark' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <textarea name="remark" placeholder="{{'app.systems.application.column.remark' | i18n}}" nz-input
+              [(ngModel)]="model.remark" maxlength="512"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </div>
+  <div class="drawer-footer">
+    <button #btnCancel type="button" (click)="close()" nz-button>{{'util.cancel'|i18n}}</button>
+    <button #btnSubmit type="submit" (click)="submit(btnSubmit, form)" nz-button
+      nzType="primary">{{'util.ok'|i18n}}</button>
+  </div>
+</form>

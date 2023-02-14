@@ -1,0 +1,69 @@
+<nz-spin [nzSpinning]="loading">
+  <div class="main" *ngIf="user">
+    <div class="left">
+      <form nz-form #form="ngForm" autocomplete="off" [nzLayout]="'vertical'">
+        <div nz-row [nzGutter]="16">
+          <div nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <nz-form-label [nzRequired]="true">{{'app.systems.user.column.nickName' | i18n}}</nz-form-label>
+              <nz-form-control [nzErrorTip]="vt_nickName">
+                <input #v_nickName="xValidationExtend" name="nickName" nz-input x-validation-extend
+                  displayName="app.systems.user.column.nickName" placeholder="{{'app.systems.user.column.nickName' | i18n}}"
+                  [(ngModel)]="user.nickName" [maxlength]="256" [required]="true" />
+                <ng-template #vt_nickName>{{v_nickName.getErrorMessage()}}</ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="16">
+          <div nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <nz-form-label>{{'app.systems.user.column.phoneNumber' | i18n}}</nz-form-label>
+              <nz-form-control [nzErrorTip]="vt_phoneNumber">
+                <input #v_phoneNumber="xValidationExtend" name="phoneNumber" nz-input x-validation-extend
+                  displayName="app.systems.user.column.phoneNumber" pattern="^1[0-9]{10}$"
+                  placeholder="{{'app.systems.user.column.phoneNumber' | i18n}}" [(ngModel)]="user.phoneNumber"
+                  [maxlength]="64" />
+                <ng-template #vt_phoneNumber>{{v_uri.getErrorMessage()}}</ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="16">
+          <div nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <nz-form-label>{{'app.systems.user.column.remark' | i18n}}</nz-form-label>
+              <nz-form-control>
+                <textarea name="remark" placeholder="{{'app.systems.user.column.remark' | i18n}}" nz-input
+                  [(ngModel)]="user.remark" maxlength="512"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="16">
+          <div nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <button #btnSubmit type="submit" (click)="submit(btnSubmit, form)" nz-button
+                nzType="primary">{{'app.account.settings.updateBaseBtn'|i18n}}</button>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="right">
+      <div class="avatar_title">{{'app.account.settings.avatar'|i18n}}</div>
+      <div class="avatar"><img src="{{ user.avatar }}" alt="{{'app.account.settings.avatar'|i18n}}" /></div>
+      <nz-upload
+        nzAction="systems/user/avatar"
+        [nzFileType]="'image/png,image/jpeg,image/gif,image/bmp'"
+        [nzShowUploadList]="false"
+        (nzChange)="handleChange($event)"
+      >
+        <button nz-button class="button_view">
+          <i nz-icon nzType="upload"></i>
+          <span>{{'app.account.settings.updateAvatarBtn'|i18n}}</span>
+        </button>
+      </nz-upload>
+    </div>
+  </div>
+</nz-spin>

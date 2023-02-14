@@ -38,7 +38,7 @@
         "src/app/layout/pro/index"
       ],
       "@dcsoft/util": [
-        "dist/dcsoft/util"
+        "projects/dcsoft/util/src/public-api"
       ]
     },
     "allowSyntheticDefaultImports": true,

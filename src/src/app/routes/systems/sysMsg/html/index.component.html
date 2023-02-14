@@ -1,0 +1,105 @@
+<page-header [action]="phActionTpl">
+  <ng-template #phActionTpl>
+    <x-button #btnSave (onClick)="save(btnSave)" class="mr-sm" color="primary" text="保存">
+      <ng-template><i nz-icon nzType="save"></i></ng-template>
+    </x-button>
+  </ng-template>
+</page-header>
+<nz-card [nzBordered]="false">
+  <form autocomplete="off" class="search__form" nz-form nzLayout="inline">
+    <div nz-row [nzGutter]="32">
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.sys-msg.column.name' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <input name="name" placeholder="{{'app.systems.sys-msg.column.name' | i18n}}" nz-input
+              [(ngModel)]="queryParam.name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.sys-msg.column.title' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <input name="title" placeholder="{{'app.systems.sys-msg.column.title' | i18n}}" nz-input
+              [(ngModel)]="queryParam.title" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="8">
+        <button #btnQuery type="button" (click)="query(btnQuery)" nz-button nzType="primary">
+          <i nz-icon nzType="search"></i>{{'util.query'|i18n}}
+        </button>
+        <button #btnRefresh type="button" (click)="refresh(btnRefresh)" nz-button>
+          <i nz-icon nzType="sync"></i>{{'util.refresh'|i18n}}
+        </button>
+      </div>
+    </div>
+  </form>
+  <nz-alert class="my-md" nzType="info" [nzMessage]="selectedRowsTpl" [nzShowIcon]="true">
+    <ng-template #selectedRowsTpl>
+      <div [innerHTML]="'util.rowsSelected'|i18n:{length:getCheckedLength()}" class="fl"></div>
+      <a *ngIf="getCheckedLength() > 0" (click)="clearCheckboxs()"
+        class="ant-alert-close-icon">{{'util.clear'|i18n}}</a>
+    </ng-template>
+  </nz-alert>
+  <nz-table #table="xEditTable" x-edit-table url="commons/msg" order="SortId"
+    (nzPageIndexChange)="table.pageIndexChange($event)" (nzPageSizeChange)="table.pageSizeChange($event)"
+    [(nzPageIndex)]="table.queryParam.page" [(nzPageSize)]="table.queryParam.pageSize" [nzData]="table.dataSource"
+    [nzFrontPagination]="false" [nzLoading]="table.loading" [nzShowPagination]="table.showPagination"
+    [nzShowQuickJumper]="true" [nzShowSizeChanger]="true" [nzShowTotal]="tableTotalDescriptionTpl"
+    [nzTotal]="table.totalCount" [nzPageSizeOptions]="table.pageSizeOptions">
+    <thead>
+      <tr>
+        <th (nzCheckedChange)="table.masterToggle()" [nzWidth]="table.config.table.checkboxWidth"
+          [nzChecked]="table.isMasterChecked()" [nzDisabled]="!table.dataSource.length"
+          [nzIndeterminate]="table.isMasterIndeterminate()" [nzShowCheckbox]="true">
+        </th>
+        <th [nzWidth]="table.config.table.lineNumberWidth">#</th>
+        <th nzWidth="120px">{{'app.systems.sys-msg.column.name'|i18n}}</th>
+        <th nzWidth="120px">{{'app.systems.sys-msg.column.title'|i18n}}</th>
+        <th>{{'app.systems.sys-msg.column.content'|i18n}}</th>
+        <th nzWidth="120px">{{'util.operation'|i18n}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr #tableRow="utilEditRow" (click)="tableEdit.clickEdit(row.id)" (dblclick)="tableEdit.dblClickEdit(row.id)"
+        *ngFor="let row of table.data; index as index" [x-edit-row]="row">
+        <td (click)="$event.stopPropagation()" (nzCheckedChange)="table.checkedSelection.toggle(row)"
+          [nzChecked]="table.checkedSelection.isSelected(row)" [nzShowCheckbox]="table.multiple">
+          <label (click)="$event.stopPropagation()" (ngModelChange)="table.checkRowOnly(row)" *ngIf="!table.multiple"
+            name="radio_table" nz-radio [ngModel]="table.checkedSelection.isSelected(row)"></label>
+        </td>
+        <td>{{ row.lineNumber }}</td>
+        <td>
+          <ng-container *ngIf="tableEdit.editId !== row.id; else tableEdit_Name">{{ row.name }}</ng-container>
+          <ng-template #tableEdit_Name>
+            <!-- <x-textbox requiredMessage="名称不能为空" [(model)]="row.name" [maxLength]="128" [required]="true"
+              [row]="tableRow"></x-textbox> -->
+          </ng-template>
+        </td>
+        <td>
+          <ng-container *ngIf="tableEdit.editId !== row.id; else tableEdit_Title">{{ row.title }}</ng-container>
+          <ng-template #tableEdit_Title>
+            <!-- <x-textbox requiredMessage="标题不能为空" [(model)]="row.title" [maxLength]="128" [required]="true"
+              [row]="tableRow"></x-textbox> -->
+          </ng-template>
+        </td>
+        <td>
+          <ng-container *ngIf="tableEdit.editId !== row.id; else tableEdit_Content">{{ row.content }}</ng-container>
+          <ng-template #tableEdit_Content>
+            <!-- <x-textbox requiredMessage="内容不能为空" [(model)]="row.content" [maxLength]="512" [required]="true"
+              [row]="tableRow"></x-textbox> -->
+          </ng-template>
+        </td>
+        <td>
+          <!-- <x-button (onClick)="edit(row.id)" class="mr-sm" color="primary" shape="circle" tooltip="{{'util.updateTooltip'|i18n}}">
+            <ng-template><i nz-icon nzType="edit"></i></ng-template>
+          </x-button> -->
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <ng-template #tableTotalDescriptionTpl let-range="range" let-total>{{
+    'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}</ng-template>
+</nz-card>

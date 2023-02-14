@@ -1,0 +1,83 @@
+<div class="modal-header">
+  <div class="modal-title" backdrop="static">选择模块</div>
+</div>
+<div class="modal-body">
+  <form autocomplete="off" class="search__form" nz-form nzLayout="inline">
+    <div nz-row [nzGutter]="32">
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.module.column.name' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <input name="name" placeholder="{{'app.systems.module.column.name' | i18n}}" nz-input
+              [(ngModel)]="queryParam.name" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.module.column.uri' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <input name="uri" placeholder="{{'app.systems.module.column.uri' | i18n}}" nz-input
+              [(ngModel)]="queryParam.uri" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.module.column.enabled' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-radio-group #enable="xRadioExtend" name="enabled" x-radio-extend [(ngModel)]="queryParam.enabled"
+              nzButtonStyle="solid"
+              [data]="[{'text':'util.enable'|i18n,'value':true,'sortId':1},{'text':'util.disable'|i18n,'value':false,'sortId':2}]">
+              <label nz-radio-button *ngFor="let item of enable.options" [nzValue]="item.value">{{item.text}}</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div nz-col [nzSpan]="6">
+        <button #btnQuery type="button" (click)="query(btnQuery)" nz-button nzType="primary">
+          <i nz-icon nzType="search"></i>{{'util.query'|i18n}}
+        </button>
+        <button #btnRefresh type="button" (click)="refresh(btnRefresh)" nz-button>
+          <i nz-icon nzType="sync"></i>{{'util.refresh'|i18n}}
+        </button>
+      </div>
+    </div>
+  </form>
+  <nz-table #table="xTreeTableExtend" (nzPageIndexChange)="table.pageIndexChange($event)"
+    (nzPageSizeChange)="table.pageSizeChange($event)" loadMode="0" order="CreationTime desc" url="systems/module"
+    x-tree-table-extend="" [(nzPageIndex)]="table.queryParam.page" [(nzPageSize)]="table.queryParam.pageSize"
+    [(queryParam)]="queryParam" [isExpandAll]="true" [nzData]="table.dataSource" [nzFrontPagination]="false"
+    [nzLoading]="table.loading" [nzShowPagination]="false" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
+    [nzShowTotal]="tableTotalDescriptionTpl" [nzTotal]="table.total">
+    <thead>
+      <tr>
+        <th><label (nzCheckedChange)="table.masterToggle()" nz-checkbox [nzChecked]="table.isMasterChecked()"
+            [nzIndeterminate]="table.isMasterIndeterminate()">{{'app.systems.module.column.name'|i18n}}</label>
+        </th>
+        <th>{{'app.systems.module.column.applicationName'|i18n}}</th>
+        <th>{{'app.systems.module.column.url'|i18n}}</th>
+        <th>{{'app.systems.module.column.enabled'|i18n}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let row of table.dataSource;index as index">
+        <tr *ngIf="table.isShow(row)">
+          <td (nzExpandChange)="table.collapse(row,$event)" [nzExpand]="table.isExpand(row)"
+            [nzIndentSize]="row.level*table.config.table.indentUnitWidth" [nzShowExpand]="!table.isLeaf(row)"><label
+              (nzCheckedChange)="table.toggle(row)" nz-checkbox [nzChecked]="table.isChecked(row)"
+              [nzIndeterminate]="table.isIndeterminate(row)">{{row.name}}</label>
+          </td>
+          <td>{{ row.applicationName }}</td>
+          <td>{{ row.url }}</td>
+          <td>
+            <nz-tag *ngIf="row.enabled" nzColor="green">{{'util.enable'|i18n}}</nz-tag>
+            <nz-tag *ngIf="!row.enabled" nzColor="red">{{'util.disable'|i18n}}</nz-tag>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </nz-table>
+  <ng-template #tableTotalDescriptionTpl let-range="range" let-total>{{
+    'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}</ng-template>
+</div>

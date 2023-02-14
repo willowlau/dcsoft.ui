@@ -12,7 +12,7 @@ import { environment } from '@env/environment';
 
 const alainConfig: AlainConfig = {
   st: { modal: { size: 'lg' } },
-  pageHeader: { homeI18n: 'home', recursiveBreadcrumb: true },
+  pageHeader: { homeI18n: 'app.home', recursiveBreadcrumb: true },
   auth: {
     login_url: '/passport/login',
     ignores: [/\/login$/, /signIn/, /verifyCode/, /encryptKey/, /passport/, /assets\//],

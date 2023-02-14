@@ -1,0 +1,78 @@
+<page-header></page-header>
+<form nz-form #form="ngForm" autocomplete="off">
+  <nz-row [nzGutter]="16">
+    <nz-col nzLg="12" nzMd="12" nzSm="24">
+      <nz-card [nzBordered]="false" class="mb-lg" nzTitle="站点参数">
+        <nz-row>
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true">网站标题</nz-form-label>
+            <nz-form-control>
+              <!-- <x-textbox name="siteTitle" requiredMessage="网站标题不能为空" [(model)]="param.siteTitle" [maxLength]="128"
+                [required]="true"></x-textbox>
+              <x-button #btnSave (onClick)="saveParam(btnSave, 'SiteTitle', param.siteTitle)" color="primary" text="保存">
+                <ng-template><i nz-icon nzType="save"></i></ng-template>
+              </x-button> -->
+            </nz-form-control>
+          </nz-form-item>
+        </nz-row>
+        <nz-row>
+          <nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <nz-form-label [nzRequired]="true">联系电话</nz-form-label>
+              <nz-form-control>
+                <!-- <x-textbox name="telephone" requiredMessage="联系电话不能为空" [(model)]="param.telephone" [maxLength]="128"
+                  [required]="true"></x-textbox>
+                <x-button #btnSave (onClick)="saveParam(btnSave, 'Telephone', param.telephone)" color="primary"
+                  text="保存">
+                  <ng-template><i nz-icon nzType="save"></i></ng-template>
+                </x-button> -->
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+        <nz-row>
+          <nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <nz-form-label [nzRequired]="true">邮箱</nz-form-label>
+              <nz-form-control>
+                <!-- <x-textbox name="email" requiredMessage="邮箱不能为空" [(model)]="param.email" [maxLength]="128"
+                  [required]="true"></x-textbox>
+                <x-button #btnSave (onClick)="saveParam(btnSave, 'Email', param.email)" color="primary" text="保存">
+                  <ng-template><i nz-icon nzType="save"></i></ng-template>
+                </x-button> -->
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+      </nz-card>
+    </nz-col>
+    <nz-col nzLg="12" nzMd="12" nzSm="24">
+      <nz-card [nzBordered]="false" class="mb-lg" nzTitle="高德参数">
+        <nz-row>
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true">接口地址</nz-form-label>
+            <nz-form-control>
+              <!-- <x-textbox name="geoApiUrl" requiredMessage="接口地址不能为空" [(model)]="param.geoApiUrl" [maxLength]="128"
+                [required]="true"></x-textbox>
+              <x-button #btnSave (onClick)="saveParam(btnSave, 'GeoApiUrl', param.geoApiUrl)" color="primary" text="保存">
+                <ng-template><i nz-icon nzType="save"></i></ng-template>
+              </x-button> -->
+            </nz-form-control>
+          </nz-form-item>
+        </nz-row>
+        <nz-row>
+          <nz-form-item>
+            <nz-form-label [nzRequired]="true">接口密钥</nz-form-label>
+            <nz-form-control>
+              <!-- <x-textbox name="geoApiKey" requiredMessage="接口密钥不能为空" [(model)]="param.geoApiKey" [maxLength]="128"
+                [required]="true"></x-textbox>
+              <x-button #btnSave (onClick)="saveParam(btnSave, 'GeoApiKey', param.geoApiKey)" color="primary" text="保存">
+                <ng-template><i nz-icon nzType="save"></i></ng-template>
+              </x-button> -->
+            </nz-form-control>
+          </nz-form-item>
+        </nz-row>
+      </nz-card>
+    </nz-col>
+  </nz-row>
+</form>

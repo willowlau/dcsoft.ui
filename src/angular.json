@@ -51,7 +51,11 @@
               "@fullcalendar/core/locales/zh-cn",
               "crypto-js",
               "lodash",
-              "moment"
+              "moment",
+              "pdfast",
+              "fmin",
+              "d3-regression",
+              "size-sensor"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [

@@ -7,6 +7,7 @@ import { environment } from '@env/environment';
 
 // dashboard pages
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
@@ -14,12 +15,16 @@ const routes: Routes = [
     component: LayoutProComponent,
     canActivateChild: [JWTGuard],
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent }
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent, data: { title: '首页', titleI18n: 'app.home', reuseClosable: false } },
+      { path: 'dashboard', component: DashboardComponent, data: { title: '仪表盘', titleI18n: 'app.dashboard.title' } },
+      { path: 'logs', loadChildren: () => import('./logs/logs.module').then(m => m.LogsModule) },
+      { path: 'systems', loadChildren: () => import('./systems/systems.module').then(m => m.SystemsModule) },
+      { path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) }
     ]
   },
   // passport
-  { path: '', loadChildren: () => import('./passport/passport.module').then(m => m.PassportModule) },
+  { path: '', loadChildren: () => import('./passport/passport.module').then(m => m.PassportModule), data: { title: '认证'  }},
   { path: 'exception', loadChildren: () => import('./exception/exception.module').then(m => m.ExceptionModule) },
   // 单页不包裹Layout
   { path: '**', redirectTo: 'exception/404' }

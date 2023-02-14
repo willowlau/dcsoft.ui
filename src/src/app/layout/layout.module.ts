@@ -24,6 +24,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzTimelineModule } from 'ng-zorro-antd/timeline';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { PageHeaderModule } from '@delon/abc/page-header';
+import { ReuseTabModule } from '@delon/abc/reuse-tab';
 
 import { LayoutPassportComponent } from './passport/passport.component';
 import { PRO_COMPONENTS } from './pro/index';
@@ -57,7 +59,9 @@ const COMPONENTS: Array<Type<any>> = [...PRO_COMPONENTS, LayoutPassportComponent
     ThemeBtnModule,
     LangsModule,
     ScrollbarModule,
-    NzMessageModule
+    NzMessageModule,
+    ReuseTabModule,
+    PageHeaderModule
   ],
   declarations: COMPONENTS,
   exports: COMPONENTS

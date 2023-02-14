@@ -1,0 +1,145 @@
+<full-content>
+  <nz-card [nzBordered]="false">
+    <form autocomplete="off" class="search__form" nz-form nzLayout="inline">
+      <nz-row [nzGutter]="32">
+        <nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="6">
+          <nz-form-item>
+            <nz-form-label>{{'app.logs.operation-log.column.title' | i18n}}</nz-form-label>
+            <nz-form-control>
+              <input name="title" placeholder="{{'app.logs.operation-log.column.title' | i18n}}" nz-input
+                [(ngModel)]="queryParam.title" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="6">
+          <nz-form-item>
+            <nz-form-label>{{'app.logs.operation-log.column.type' | i18n}}</nz-form-label>
+            <nz-form-control>
+              <nz-select #type="xSelectExtend" name="type" x-select-extend [(ngModel)]="queryParam.type"
+                [data]="[{'text':'其它','value':0,'sortId':1},{'text':'新增','value':1,'sortId':2},{'text':'修改','value':2,'sortId':3},{'text':'删除','value':3,'sortId':4}]">
+                <nz-option [nzLabel]="'util.defaultOptionText'|i18n"></nz-option>
+                <ng-container *ngIf="!type.isGroup">
+                  <nz-option *ngFor="let item of type.options" [nzDisabled]="item.disabled"
+                    [nzLabel]="item.text" [nzValue]="item.value"></nz-option>
+                </ng-container>
+                <ng-container *ngIf="type.isGroup">
+                  <nz-option-group *ngFor="let group of type.optionGroups" [nzLabel]="group.text">
+                    <nz-option *ngFor="let item of group.value" [nzDisabled]="item.disabled" [nzLabel]="item.text"
+                      [nzValue]="item.value"></nz-option>
+                  </nz-option-group>
+                </ng-container>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="6">
+          <nz-form-item>
+            <nz-form-label>{{'app.logs.operation-log.column.creationTime' | i18n}}</nz-form-label>
+            <nz-form-control>
+              <nz-range-picker name="operatorTime" [(ngModel)]="operatorTime"></nz-range-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col nzXs="24" nzSm="24" nzMd="12" nzLg="8" nzXl="6">
+          <nz-form-item>
+            <button #btnQuery type="button" (click)="query(btnQuery)" nz-button nzType="primary">
+              <i nz-icon nzType="search"></i>{{'util.query'|i18n}}
+            </button>
+            <button #btnRefresh type="button" (click)="refresh(btnRefresh)" nz-button>
+              <i nz-icon nzType="sync"></i>{{'util.refresh'|i18n}}
+            </button>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+    </form>
+  </nz-card>
+  <nz-card nzTitle="{{'util.tableTitle' | i18n}}" [nzBordered]="false" [nzExtra]="operatorActionTpl"
+    [nzBodyStyle]="{ 'padding-top': '0px' }">
+    <ng-template #operatorActionTpl>
+      <button (click)="openCreateDrawer()" class="mr-sm" nz-button nzType="primary">
+        <i nz-icon nzType="plus"></i>{{'util.create'|i18n}}
+      </button>
+      <ng-container *ngIf="getCheckedLength() > 0">
+        <button nz-button nz-dropdown [nzDropdownMenu]="batchMenu" nzPlacement="bottomLeft">
+          {{'util.deleteBatch'|i18n}}
+          <i nz-icon nzType="down"></i>
+        </button>
+        <nz-dropdown-menu #batchMenu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="deleteBatch()">{{'util.delete'|i18n}}</li>
+          </ul>
+        </nz-dropdown-menu>
+      </ng-container>
+      <nz-divider nzType="vertical"></nz-divider>
+      <span [nzDropdownMenu]="menu" nz-tooltip nzTooltipTitle="{{'util.tableSize'|i18n}}" nz-dropdown>
+        <i nz-icon class="toolbar-icon" nzType="column-height"></i>
+      </span>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+          <li nz-menu-item (click)="setSise('default')">{{'util.tableSizeDefault'|i18n}}</li>
+          <li nz-menu-item nzSelected (click)="setSise('middle')">{{'util.tableSizeMiddle'|i18n}}</li>
+          <li nz-menu-item (click)="setSise('small')">{{'util.tableSizeSmall'|i18n}}</li>
+        </ul>
+      </nz-dropdown-menu>
+      <span full-toggle nz-tooltip nzTooltipTitle="{{'util.fullScreen'|i18n}}">
+        <i class="toolbar-icon" nz-icon nzType="fullscreen"></i>
+      </span>
+      <span (click)="refresh(btnQuery)" nz-tooltip nzTooltipTitle="{{'util.refresh'|i18n}}">
+        <i class="toolbar-icon" nz-icon nzType="reload"></i>
+      </span>
+    </ng-template>
+    <nz-alert class="my-md" nzType="info" [nzMessage]="selectedRowsTpl" [nzShowIcon]="true">
+      <ng-template #selectedRowsTpl>
+        <div [innerHTML]="'util.rowsSelected'|i18n:{length:getCheckedLength()}" class="fl"></div>
+        <a *ngIf="getCheckedLength() > 0" (click)="clearCheckboxs()"
+          class="ant-alert-close-icon">{{'util.clear'|i18n}}</a>
+      </ng-template>
+    </nz-alert>
+    <nz-table #table="xTableExtend" x-table-extend url="logs/operate-log"
+    (nzPageIndexChange)="table.pageIndexChange($event)" order="CreationTime desc" [(queryParam)]="queryParam"
+    (nzPageSizeChange)="table.pageSizeChange($event)" [(nzPageIndex)]="table.queryParam.page"
+    [(nzPageSize)]="table.queryParam.pageSize" [nzData]="table.dataSource" [nzFrontPagination]="false"
+    [nzLoading]="table.loading" [nzSize]="table.tableSize" [nzShowPagination]="true" [nzShowQuickJumper]="true"
+    [nzShowSizeChanger]="true" [nzShowTotal]="tableTotalDescriptionTpl" [nzTotal]="table.total"
+    [nzPageSizeOptions]="table.pageSizeOptions">
+      <thead>
+        <tr>
+          <th (nzCheckedChange)="table.masterToggle()" [nzWidth]="table.config.table.checkboxWidth"
+            [nzChecked]="table.isMasterChecked()" [nzDisabled]="!table.dataSource.length"
+            [nzIndeterminate]="table.isMasterIndeterminate()" [nzShowCheckbox]="true">
+          </th>
+          <th [nzWidth]="table.config.table.lineNumberWidth">#</th>
+          <th>{{'app.logs.operation-log.column.title'|i18n}}</th>
+          <th>{{'app.logs.operation-log.column.type'|i18n}}</th>
+          <th>{{'app.logs.operation-log.column.method'|i18n}}</th>
+          <th>{{'app.logs.operation-log.column.ipAddress'|i18n}}</th>
+          <th>{{'app.logs.operation-log.column.location'|i18n}}</th>
+          <th>{{'app.logs.operation-log.column.os'|i18n}}</th>
+          <th>{{'app.logs.operation-log.column.creationTime'|i18n}}</th>
+          <th>{{'util.operation'|i18n}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of table.dataSource;index as index">
+          <td (click)="$event.stopPropagation()" (nzCheckedChange)="table.toggle(row)"
+            [nzChecked]="table.isChecked(row)" [nzShowCheckbox]="true">
+          </td>
+          <td>{{ row.lineNumber }}</td>
+          <td>{{ row.title }}</td>
+          <td>{{ row.type | businessType }}</td>
+          <td>{{ row.method }}</td>
+          <td>{{ row.ipAddress }}</td>
+          <td>{{ row.location }}</td>
+          <td>{{ row.os }}</td>
+          <td>{{ row.creationTime }}</td>
+          <td>
+            <a (click)="openDetailDialog(row)" nz-tooltip nzTooltipTitle="{{'util.detailTooltip'|i18n}}"
+              class="mr-sm"><i nz-icon nzType="eye" nzTheme="outline"></i> {{'util.detail'|i18n}}</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <ng-template #tableTotalDescriptionTpl let-range="range" let-total>{{
+      'util.tableTotalTemplate'|i18n:{start:range[0],end:range[1],total:total} }}</ng-template>
+  </nz-card>
+</full-content>

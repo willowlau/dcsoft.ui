@@ -4,9 +4,16 @@ import { RTLService } from '@delon/theme';
 @Component({
   selector: 'layout-pro-rtl',
   template: `
-    <button nz-button nzType="link" class="alain-pro__header-item-icon">
-      {{ rtl.nextDir | uppercase }}
-    </button>
+    <a
+      nz-tooltip
+      [nzTooltipTitle]="rtl.nextDir === 'rtl' ? '文字右对齐' : '文字左对齐'"
+      nzTooltipPlacement="bottom"
+      class="hidden-xs"
+      rel="noopener noreferrer"
+      class="alain-pro__header-item"
+    >
+      <i nz-icon [nzType]="rtl.nextDir === 'rtl' ? 'align-left' : 'align-right'"></i>
+    </a>
   `,
   host: {
     '[class.alain-pro__header-item]': 'true'

@@ -1,0 +1,126 @@
+<form nz-form #form="ngForm" autocomplete="off" [nzLayout]="'vertical'">
+  <!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">编辑用户</div>
+  </div> -->
+  <nz-spin *ngIf="loading" class="modal-spin"></nz-spin>
+  <div *ngIf="!loading" class="modal-body">
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.user.column.userName' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_userName">
+            <input #v_userName="xValidationExtend" name="userName" nz-input x-validation-extend
+              displayName="app.systems.user.column.userName" [disabled]="!isNew"
+              placeholder="{{'app.systems.user.column.userName' | i18n}}" [(ngModel)]="model.userName" [maxlength]="256"
+              [required]="true" />
+            <ng-template #vt_userName>{{v_userName.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.user.column.nickName' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_nickName">
+            <input #v_nickName="xValidationExtend" name="nickName" nz-input x-validation-extend
+              displayName="app.systems.user.column.nickName" placeholder="{{'app.systems.user.column.nickName' | i18n}}"
+              [(ngModel)]="model.nickName" [maxlength]="256" [required]="true" />
+            <ng-template #vt_nickName>{{v_nickName.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.user.column.password' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_password">
+            <input #v_password="xValidationExtend" name="password" nz-input x-validation-extend type="password"
+              [disabled]="!isNew" displayName="app.systems.user.column.password"
+              placeholder="{{'app.systems.user.column.password' | i18n}}" [(ngModel)]="model.password" [maxlength]="256"
+              [required]="true" />
+            <ng-template #vt_password>{{v_password.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.user.column.confirmPassword' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_confirmPassword">
+            <input #v_confirmPassword="xValidationExtend" name="confirmPassword" nz-input x-validation-extend
+              type="password" [disabled]="!isNew" displayName="app.systems.user.column.confirmPassword"
+              placeholder="{{'app.systems.user.column.confirmPassword' | i18n}}" [(ngModel)]="model.confirmPassword"
+              [maxlength]="256" [required]="true" />
+            <ng-template #vt_confirmPassword>{{v_confirmPassword.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.user.column.phoneNumber' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_phoneNumber">
+            <input #v_phoneNumber="xValidationExtend" name="phoneNumber" nz-input x-validation-extend
+              displayName="app.systems.user.column.phoneNumber" pattern="^1[0-9]{10}$" type="phone"
+              patternMessage="{{'app.systems.user.message.invalidPhone'|i18n}}"
+              placeholder="{{'app.systems.user.column.phoneNumber' | i18n}}" [(ngModel)]="model.phoneNumber"
+              [maxlength]="64" />
+            <ng-template #vt_phoneNumber>{{v_phoneNumber.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.user.column.email' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_email">
+            <input #v_email="xValidationExtend" name="email" nz-input x-validation-extend
+              displayName="app.systems.user.column.email" type="email"
+              patternMessage="{{'app.systems.user.message.invalidEmail'|i18n}}"
+              pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+              placeholder="{{'app.systems.user.column.email' | i18n}}" [(ngModel)]="model.email" [maxlength]="64" />
+            <ng-template #vt_email>{{v_email.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.user.column.roles' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-select #roles="xSelectExtend" name="roles" x-select-extend [(ngModel)]="model.roleIds"
+              url="systems/role/all" nzMode="tags">
+              <ng-container *ngIf="!roles.isGroup">
+                <nz-option *ngFor="let item of roles.options" [nzDisabled]="item.disabled" [nzLabel]="item.text"
+                  [nzValue]="item.value"></nz-option>
+              </ng-container>
+              <ng-container *ngIf="roles.isGroup">
+                <nz-option-group *ngFor="let group of roles.optionGroups" [nzLabel]="group.text">
+                  <nz-option *ngFor="let item of group.value" [nzDisabled]="item.disabled" [nzLabel]="item.text"
+                    [nzValue]="item.value"></nz-option>
+                </nz-option-group>
+              </ng-container>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.user.column.remark' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <textarea name="remark" placeholder="{{'app.systems.user.column.remark' | i18n}}" nz-input
+              [(ngModel)]="model.remark" maxlength="512"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </div>
+
+  <div class="drawer-footer">
+    <button #btnCancel type="button" (click)="close()" nz-button>{{'util.cancel'|i18n}}</button>
+    <button #btnSubmit type="submit" (click)="submit(btnSubmit, form)" nz-button
+      nzType="primary">{{'util.ok'|i18n}}</button>
+  </div>
+</form>

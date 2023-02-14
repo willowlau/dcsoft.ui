@@ -1,0 +1,20 @@
+<!-- <div class="modal-header">
+  <div class="modal-title" backdrop="static">日志详情</div>
+</div> -->
+<div class="modal-body">
+  <nz-descriptions [nzBordered]="true" [nzColumn]="2">
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.title'|i18n}}">{{ model.title }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.urlType'|i18n}}">{{ model.urlType | operatorType }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.type'|i18n}}">{{ model.type | businessType }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.method'|i18n}}">{{ model.method }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.url'|i18n}}" nzSpan="2">{{ model.url }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.ipAddress'|i18n}}">{{ model.ipAddress }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.location'|i18n}}">{{ model.location }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.params'|i18n}}" nzSpan="2">
+      <textarea nz-input placeholder="{{'app.logs.operation-log.column.params'|i18n}}" [nzAutosize]="{ minRows: 2, maxRows: 6 }" [(ngModel)]="model.params"></textarea>
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.os'|i18n}}">{{ model.os }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.creationTime'|i18n}}">{{ model.creationTime }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.logs.operation-log.column.browser'|i18n}}" nzSpan="2">{{ model.browser }}</nz-descriptions-item>
+  </nz-descriptions>
+</div>

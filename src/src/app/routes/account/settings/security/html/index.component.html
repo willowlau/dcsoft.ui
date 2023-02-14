@@ -1,0 +1,59 @@
+<nz-spin [nzSpinning]="loading">
+  <div class="main">
+    <div class="left">
+      <form nz-form #form="ngForm" autocomplete="off" [nzLayout]="'vertical'">
+        <div nz-row [nzGutter]="16">
+          <div nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <nz-form-label [nzRequired]="true">{{'app.account.security.oldPassword' | i18n}}</nz-form-label>
+              <nz-form-control [nzErrorTip]="vt_oldPassword">
+                <input #v_oldPassword="xValidationExtend" name="oldPassword" nz-input x-validation-extend
+                  type="password" displayName="app.account.security.oldPassword"
+                  placeholder="{{'app.account.security.oldPassword' | i18n}}" [(ngModel)]="data.oldPassword"
+                  [maxlength]="256" [required]="true" />
+                <ng-template #vt_oldPassword>{{v_oldPassword.getErrorMessage()}}</ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="16">
+          <div nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <nz-form-label [nzRequired]="true">{{'app.account.security.newPassword' | i18n}}</nz-form-label>
+              <nz-form-control [nzErrorTip]="vt_newPassword">
+                <input #v_newPassword="xValidationExtend" name="newPassword" nz-input x-validation-extend
+                  type="password" displayName="app.account.security.newPassword"
+                  placeholder="{{'app.account.security.newPassword' | i18n}}" [(ngModel)]="data.newPassword"
+                  [maxlength]="256" [required]="true" />
+                <ng-template #vt_newPassword>{{v_newPassword.getErrorMessage()}}</ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="16">
+          <div nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <nz-form-label [nzRequired]="true">{{'app.account.security.confirmPassword' | i18n}}</nz-form-label>
+              <nz-form-control [nzErrorTip]="vt_confirmPassword">
+                <input #v_confirmPassword="xValidationExtend" name="confirmPassword" nz-input x-validation-extend
+                  type="password" displayName="app.account.security.confirmPassword"
+                  placeholder="{{'app.account.security.confirmPassword' | i18n}}" [(ngModel)]="data.confirmPassword"
+                  [maxlength]="256" [required]="true" />
+                <ng-template #vt_confirmPassword>{{v_confirmPassword.getErrorMessage()}}</ng-template>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+        <div nz-row [nzGutter]="16">
+          <div nz-col nzLg="24" nzMd="24" nzSm="24">
+            <nz-form-item>
+              <button #btnSubmit type="submit" (click)="submit(btnSubmit, form)" nz-button
+                nzType="primary">{{'app.account.security.updatePwd'|i18n}}</button>
+            </nz-form-item>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="right"> </div>
+  </div>
+</nz-spin>

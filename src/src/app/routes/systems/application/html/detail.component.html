@@ -1,0 +1,17 @@
+<!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">应用程序详情</div>
+</div> -->
+<div class="modal-body">
+  <nz-descriptions [nzBordered]="true" [nzColumn]="2">
+    <nz-descriptions-item nzTitle="{{'app.systems.application.column.code' | i18n}}">{{ model.code
+      }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.application.column.name' | i18n}}">{{ model.name
+      }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.application.column.enabled' | i18n}}"><i *ngIf="model.enabled"
+        nz-icon="" nzType="check"></i><i *ngIf="!model.enabled" nz-icon="" nzType="close"></i></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.application.column.registerEnabled' | i18n}}"><i *ngIf="model.registerEnabled" nz-icon="" nzType="check"></i><i
+        *ngIf="!model.registerEnabled" nz-icon="" nzType="close"></i></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.application.column.creationTime' | i18n}}">{{ model.creationTime }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="{{'app.systems.application.column.remark' | i18n}}">{{ model.remark }}</nz-descriptions-item>
+  </nz-descriptions>
+</div>

@@ -1,0 +1,14 @@
+<!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">声明详情</div>
+</div> -->
+<div class="modal-body">
+  <nz-descriptions [nzBordered]="true" [nzColumn]="2">
+    <nz-descriptions-item nzTitle="名称" [nzSpan]="2">{{ model.name }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="启用"
+      ><i *ngIf="model.enabled" nz-icon="" nzType="check"></i><i *ngIf="!model.enabled" nz-icon="" nzType="close"></i
+    ></nz-descriptions-item>
+    <nz-descriptions-item nzTitle="排序号">{{ model.sortId }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="创建时间" [nzSpan]="2">{{ model.creationTime }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="描述" [nzSpan]="2">{{ model.remark }}</nz-descriptions-item>
+  </nz-descriptions>
+</div>

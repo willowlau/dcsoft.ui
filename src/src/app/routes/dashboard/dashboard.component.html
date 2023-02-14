@@ -1,3 +1,69 @@
 <page-grid>
-  Thank you for choosing the pro theme!
+  <div nz-row nzGutter="16">
+    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+      <nz-spin [nzSpinning]="loading">
+        <g2-card
+          class="loading"
+          title="总设备数"
+          total="{{ total | number: '1.0-0' }}"
+          contentHeight="44px"
+          [avatar]="avatar1"
+          [action]="action1"
+        >
+          <ng-template #avatar1><img alt="总设备数" style="width: 48px; height: 48px" src="./assets/img/device.svg" /> </ng-template>
+          <ng-template #action1>
+            <i nz-tooltip (click)="loadData()" nzTooltipTitle="刷新" nz-icon nzType="sync"></i>
+          </ng-template>
+        </g2-card>
+      </nz-spin>
+    </div>
+    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+      <nz-spin [nzSpinning]="loading">
+        <g2-card title="在线设备数" total="{{ totalOnline | number: '1.0-0' }}" contentHeight="44px" [avatar]="avatar2" [action]="action2">
+          <ng-template #avatar2
+            ><img alt="在线设备数" style="width: 48px; height: 48px" src="./assets/img/device-online.svg" />
+          </ng-template>
+          <ng-template #action2>
+            <i nz-tooltip (click)="loadData()" nzTooltipTitle="刷新" nz-icon nzType="sync"></i>
+          </ng-template>
+        </g2-card>
+      </nz-spin>
+    </div>
+    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+      <nz-spin [nzSpinning]="loading">
+        <g2-card title="离线设备数" total="{{ totalOffline | number: '1.0-0' }}" contentHeight="44px" [avatar]="avatar3" [action]="action3">
+          <ng-template #avatar3
+            ><img alt="离线设备数" style="width: 48px; height: 48px" src="./assets/img/device-offline.svg" />
+          </ng-template>
+          <ng-template #action3>
+            <i nz-tooltip (click)="loadData()" nzTooltipTitle="刷新" nz-icon nzType="sync"></i>
+          </ng-template>
+        </g2-card>
+      </nz-spin>
+    </div>
+    <div nz-col nzXs="24" nzSm="12" nzMd="12" nzLg="6">
+      <nz-spin [nzSpinning]="loading">
+        <g2-card title="已租设备数" total="{{ totalRent | number: '1.0-0' }}" contentHeight="44px" [avatar]="avatar4" [action]="action4">
+          <ng-template #avatar4><img alt="已租设备数" style="width: 48px; height: 48px" src="./assets/img/device-rent.svg" /> </ng-template>
+          <ng-template #action4>
+            <i nz-tooltip (click)="loadData()" nzTooltipTitle="刷新" nz-icon nzType="sync"></i>
+          </ng-template>
+        </g2-card>
+      </nz-spin>
+    </div>
+  </div>
+  <div nz-row nzGutter="16">
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12">
+      <app-online-status-chart url="commons/demo/online-status" [autoLoad]="true"></app-online-status-chart>
+    </div>
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12">
+      <app-device-rent-chart url="commons/demo/device-rent" [autoLoad]="true"></app-device-rent-chart>
+    </div>
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12">
+      <app-device-access-chart url="commons/demo/device-access" [autoLoad]="true"></app-device-access-chart>
+    </div>
+    <div nz-col nzXs="24" nzSm="24" nzMd="24" nzLg="12">
+      <app-device-access-line-chart url="commons/demo/device-access" [autoLoad]="true"></app-device-access-line-chart>
+    </div>
+  </div>
 </page-grid>

@@ -1,0 +1,13 @@
+<nz-card nzTitle="{{'app.systems.application.title' | i18n}}" [nzBordered]="false" [nzExtra]="operatorActionTpl" [nzBodyStyle]="{ padding: '5px' }">
+  <ng-template #operatorActionTpl>
+    <span (click)="loadApplications()" nz-tooltip nzTooltipTitle="{{'util.refresh' | i18n}}">
+      <i class="toolbar-icon" nz-icon nzType="reload"></i>
+    </span>
+  </ng-template>
+  <nz-spin *ngIf="loading"></nz-spin>
+  <ul nz-menu nzMode="inline">
+    <li (click)="click(item)" *ngFor="let item of list" title="{{ item.name }}" nz-menu-item
+      [nzSelected]="item == selected">{{ item.name }}
+    </li>
+  </ul>
+</nz-card>

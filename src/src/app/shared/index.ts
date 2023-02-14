@@ -8,6 +8,7 @@ export * from './components/status-label/index';
 export * from './components/scrollbar/index';
 export * from './components/address/index';
 export * from './components/langs/index';
+export * from './components/icon-select/index';
 
 // Utils
 export * from './utils/yuan';

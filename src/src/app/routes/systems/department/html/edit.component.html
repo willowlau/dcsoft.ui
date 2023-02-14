@@ -1,0 +1,63 @@
+<form nz-form #form="ngForm" autocomplete="off" [nzLayout]="'vertical'">
+  <!-- <div class="modal-header">
+    <div class="modal-title" backdrop="static">编辑部门</div>
+  </div> -->
+  <nz-spin *ngIf="loading" class="modal-spin"></nz-spin>
+  <div *ngIf="!loading" class="modal-body">
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.department.column.parentName'|i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_parentName">
+            <nz-tree-select #x_parentName="xTreeExtend" #v_parentName="xValidationExtend" x-validation-extend
+              (nzExpandChange)="x_parentName.expandChange($event)" name="parentId" nzVirtualHeight="300px"
+              order="SortId" url="commons/department/tree" x-tree-extend [(ngModel)]="model.parentId"
+              [(queryParam)]="queryParam" [loadKeys]="model.parentId" [nzDefaultExpandAll]="true"
+              [nzNodes]="x_parentName.dataSource">
+            </nz-tree-select>
+            <ng-template #vt_parentName>{{v_parentName.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col nzLg="12" nzMd="12" nzSm="24">
+        <nz-form-item>
+          <nz-form-label [nzRequired]="true">{{'app.systems.department.column.name' | i18n}}</nz-form-label>
+          <nz-form-control [nzErrorTip]="vt_name">
+            <input #v_name="xValidationExtend" name="name" nz-input x-validation-extend
+              displayName="app.systems.department.column.name"
+              placeholder="{{'app.systems.department.column.name' | i18n}}" [(ngModel)]="model.name" [maxlength]="64"
+              [required]="true" />
+            <ng-template #vt_name>{{v_name.getErrorMessage()}}</ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="6" nzMd="6" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.department.column.enabled' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <nz-switch name="enabled" [(ngModel)]="model.enabled"></nz-switch>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+    <nz-row [nzGutter]="16">
+      <nz-col nzLg="24" nzMd="24" nzSm="24">
+        <nz-form-item>
+          <nz-form-label>{{'app.systems.department.column.remark' | i18n}}</nz-form-label>
+          <nz-form-control>
+            <textarea name="remark" placeholder="{{'app.systems.department.column.remark' | i18n}}" nz-input
+              [(ngModel)]="model.remark" maxlength="512"></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </div>
+
+  <div class="drawer-footer">
+    <button #btnCancel type="button" (click)="close()" nz-button>{{'util.cancel'|i18n}}</button>
+    <button #btnSubmit type="submit" (click)="submit(btnSubmit, form)" nz-button
+      nzType="primary">{{'util.ok'|i18n}}</button>
+  </div>
+</form>

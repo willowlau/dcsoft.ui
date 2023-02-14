@@ -138,7 +138,8 @@
     "@types/amap-js-api-tool-bar": "^1.4.1",
     "@types/amap-js-api-transfer": "^1.4.1",
     "@types/crypto-js": "^4.1.1",
-    "@types/lodash": "^4.14.191"
+    "@types/lodash": "^4.14.191",
+    "@types/moment": "^2.13.0"
   },
   "lint-staged": {
     "(src)/**/*.{html,ts}": [
