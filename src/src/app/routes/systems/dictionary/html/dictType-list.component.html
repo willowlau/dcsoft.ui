@@ -81,7 +81,7 @@
       [(queryParam)]="queryParam" [isExpandAll]="true" [nzData]="table.dataSource" [nzFrontPagination]="false"
       [nzLoading]="table.loading" [nzShowPagination]="false" [nzShowQuickJumper]="true" [nzShowSizeChanger]="true"
       [nzShowTotal]="tableTotalDescriptionTpl" [nzTotal]="table.total">
-      <thead (nzSortOrderChange)="table.sort($event)">
+      <thead (nzSortOrderChange)="table.sortChange($event.key, $event.value)">
         <tr>
           <th><label (nzCheckedChange)="table.masterToggle()" nz-checkbox [nzChecked]="table.isMasterChecked()"
               [nzIndeterminate]="table.isMasterIndeterminate()">{{'app.systems.dict-type.column.name'|i18n}}</label>

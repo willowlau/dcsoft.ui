@@ -88,7 +88,7 @@
       [nzLoading]="table.loading" [nzSize]="table.tableSize" [nzShowPagination]="true" [nzShowQuickJumper]="true"
       [nzShowSizeChanger]="true" [nzShowTotal]="tableTotalDescriptionTpl" [nzTotal]="table.total"
       [nzPageSizeOptions]="table.pageSizeOptions">
-      <thead (nzSortOrderChange)="table.sort($event)">
+      <thead (nzSortOrderChange)="table.sortChange($event.key, $event.value)">
         <tr>
           <th (nzCheckedChange)="table.masterToggle()" [nzWidth]="table.config.table.checkboxWidth"
             [nzChecked]="table.isMasterChecked()" [nzDisabled]="!table.dataSource.length"
