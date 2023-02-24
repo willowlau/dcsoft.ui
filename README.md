@@ -1,1 +1,1 @@
-综合业务系统
+基于Angular语言，NG-ZORRO框架的前端
