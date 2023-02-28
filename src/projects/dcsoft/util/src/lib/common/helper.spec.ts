@@ -1,5 +1,5 @@
-//============== π´π≤≤Ÿ◊˜≤‚ ‘ =========================
-//Copyright 2023 ∫Œ’Úœ´
+//============== ÂÖ¨ÂÖ±Êìç‰ΩúÊµãËØï =========================
+//Copyright 2023 ‰ΩïÈïáÊ±ê
 //Licensed under the MIT license
 //=====================================================
 import * as helper from "./helper"
@@ -70,12 +70,13 @@ describe('util.helper', () => {
     });
     it("formatDate", () => {
         expect(helper.formatDate(new Date(2022, 8, 2, 13, 58, 36))).toEqual("2022-09-02 13:58:36");
-        expect(helper.formatDate(new Date("2022-9-2 13:58:36"))).toEqual("2022-09-02 13:58:36");
+        expect(helper.formatDate(new Date("2022-9-2 13:58:36"), "YYYY-MM-DD HH:mm:ss")).toEqual("2022-09-02 13:58:36");
+        expect(helper.formatDate(new Date("2022-9-2 13:58:36"), "YY-MM-DD HH:mm:ss")).toEqual("22-09-02 13:58:36");
     });
 });
 
 /**
- * ≤‚ ‘≤Œ ˝
+ * ÊµãËØïÂèÇÊï∞
  */
 class TestQuery extends QueryParameter {
     test:string;

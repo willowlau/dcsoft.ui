@@ -51,7 +51,6 @@
               "@fullcalendar/core/locales/zh-cn",
               "crypto-js",
               "lodash",
-              "moment",
               "pdfast",
               "fmin",
               "d3-regression",

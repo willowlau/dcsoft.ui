@@ -3,8 +3,9 @@
 //Licensed under the MIT license
 //================================================
 import { DES, enc, mode, pad } from "crypto-js";
-import * as _lodash from "lodash";
-import * as _moment from "moment";
+import _lodash from "lodash";
+import * as _date from "date-fns";
+import { zhCN } from "date-fns/locale";
 import { UUID } from "./internal/uuid";
 
 /**
@@ -128,22 +129,6 @@ export let last = <T>(array: any): T => {
  */
 export let uuid = (): string => {
   return UUID.UUID();
-};
-
-/**
- * 是否有效日期
- * @param date 日期
- */
-export let isValidDate = (date: string): boolean => {
-  return _moment(getValidDate(date)).isValid();
-};
-
-/**
- * 转换为日期
- * @param date 日期，字符串日期范例：2001-01-01
- */
-export let toDate = (date: string): Date => {
-  return _moment(getValidDate(date)).toDate();
 };
 
 /**
@@ -429,20 +414,21 @@ export let assign = (destination, source) => {
 /**
  *  格式化日期
  * @param datetime 日期
- * @param format 格式化字符串，范例：YYYY-MM-DD,可选值：(注意：区分大小写)
- * (1) 年: YYYY
+ * @param format 格式化字符串，范例：yyyy-MM-dd,可选值：(注意：区分大小写)
+ * (1) 年: yyyy
  * (2) 月: MM
- * (3) 日: DD
+ * (3) 日: dd
  * (4) 时: HH
  * (5) 分: mm
  * (6) 秒: ss
  * (7) 毫秒: SSS
  */
-export let formatDate = (datetime, format: string = "YYYY-MM-DD HH:mm:ss"): string => {
-  let date = _moment(datetime);
-  if (!date.isValid()) return "";
-  return date.format(format);
-};
+export let formatDate = (datetime, format: string = 'yyyy-MM-dd HH:mm:ss'): string => {
+  if (!format)
+      format = 'yyyy-MM-dd HH:mm:ss';
+  format = format.replace(/Y/g, "y").replace(/D/g, "d");
+  return _date.format(datetime, format);
+}
 
 /**
  * 转换为json字符串
@@ -486,14 +472,14 @@ export function getExtension(name: string): any {
  * 获取今天日期
  */
 export function getTodayDate(): string {
-  return _moment().format('YYYY-MM-DD');
+  return _date.format(new Date(), 'yyyy-MM-dd', { locale: zhCN });
 }
 
 /**
  * 获取当前时间
  */
 export function getDateTime(): string {
-  return _moment().format('YYYY-MM-DD HH:mm:ss');
+  return _date.format(new Date(), 'yyyy-MM-dd HH:mm:ss');
 }
 
 /**
@@ -502,7 +488,7 @@ export function getDateTime(): string {
  * @param hour 增加的小时
  */
 export function nowDateTimeAddHour(hour: number): string {
-  return _moment().add(hour, 'hours').format('YYYY-MM-DD HH:mm:ss');
+  return _date.format(_date.addHours(new Date(), hour), 'yyyy-MM-dd HH:mm:ss');
 }
 
 /**
@@ -511,7 +497,7 @@ export function nowDateTimeAddHour(hour: number): string {
  * @param hour 增加的小时
  */
 export function nowDateTimeSubHour(hour: number): string {
-  return _moment().subtract(hour, 'hours').format('YYYY-MM-DD HH:mm:ss');
+  return _date.format(_date.addHours(new Date(), -hour), 'yyyy-MM-dd HH:mm:ss');
 }
 
 /**
@@ -520,49 +506,49 @@ export function nowDateTimeSubHour(hour: number): string {
  * @param year 增加的年
  */
 export function nowDateAddYear(year: number): string {
-  return _moment().add(year, 'years').format('YYYY-MM-DD');
+  return _date.format(_date.addYears(new Date(), year), 'yyyy-MM-dd');
 }
 
 /**
  * 获取本年初日期
  */
-export function getStartOfYear(): _moment.Moment {
-  return _moment().startOf('year');
+export function getStartOfYear(): string {
+  return _date.format(_date.startOfYear(new Date()), 'yyyy-MM-dd');
 }
 
 /**
  * 获取本年末日期
  */
-export function getEndOfYear(): _moment.Moment {
-  return _moment().endOf('year');
+export function getEndOfYear(): string {
+  return _date.format(_date.endOfYear(new Date()), 'yyyy-MM-dd');
 }
 
 /**
  * 获取本月初日期
  */
-export function getStartOfMonth(): _moment.Moment {
-  return _moment().startOf('month');
+export function getStartOfMonth(): string {
+  return _date.format(_date.startOfMonth(new Date()), 'yyyy-MM-dd');
 }
 
 /**
  * 获取本月末日期
  */
-export function getEndOfMonth(): _moment.Moment {
-  return _moment().endOf('month');
+export function getEndOfMonth(): string {
+  return _date.format(_date.endOfMonth(new Date()), 'yyyy-MM-dd');
 }
 
 /**
  * 获取本周初日期
  */
-export function getStartOfWeek(): _moment.Moment {
-  return _moment().startOf('week').add(1, 'day');
+export function getStartOfWeek(): string {
+  return _date.format(_date.startOfWeek(new Date()), 'yyyy-MM-dd');
 }
 
 /**
  * 获取本周末日期
  */
-export function getEndOfWeek(): _moment.Moment {
-  return _moment().endOf('week').add(1, 'day');
+export function getEndOfWeek(): string {
+  return _date.format(_date.endOfWeek(new Date()), 'yyyy-MM-dd');
 }
 
 /**
@@ -571,9 +557,7 @@ export function getEndOfWeek(): _moment.Moment {
  * @param value 日期值
  */
 export function isBeforeToday(value: Date): boolean {
-  const date = formatDate(value);
-  const today = formatDate(new Date());
-  return _moment(date).isBefore(today);
+  return _date.isYesterday(value);
 }
 
 /**
@@ -582,9 +566,8 @@ export function isBeforeToday(value: Date): boolean {
  * @param value 日期值
  */
 export function isBeforeTomorrow(value: Date): boolean {
-  const date = formatDate(value);
-  const tomorrow = _moment().add(1, 'day').format('YYYY-MM-DD');
-  return _moment(date).isBefore(tomorrow);
+  const tomorrow = _date.addDays(new Date(), 1);
+  return _date.isBefore(value, tomorrow);
 }
 
 /**
