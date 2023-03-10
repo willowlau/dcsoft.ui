@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { DrawerEditComponentBase, SelectItem } from '@dcsoft/util';
+import { EditComponentBase, SelectItem } from '@dcsoft/util';
 
 import { TasksQzViewModel } from './model/tasksQz-view-model';
 
@@ -10,7 +10,7 @@ import { TasksQzViewModel } from './model/tasksQz-view-model';
   selector: 'app-tasksQz-edit',
   templateUrl: './html/edit.component.html'
 })
-export class TasksQzEditComponent extends DrawerEditComponentBase<TasksQzViewModel> implements OnInit {
+export class TasksQzEditComponent extends EditComponentBase<TasksQzViewModel> implements OnInit {
   /**
    * 运行时间
    */

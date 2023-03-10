@@ -1,5 +1,5 @@
 ﻿import { Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { DrawerEditComponentBase } from '@dcsoft/util';
+import { EditComponentBase } from '@dcsoft/util';
 
 import { CreateUserViewModel } from './model/create-user-view-model';
 
@@ -10,7 +10,7 @@ import { CreateUserViewModel } from './model/create-user-view-model';
   selector: 'app-user-edit',
   templateUrl: './html/edit.component.html'
 })
-export class UserEditComponent extends DrawerEditComponentBase<CreateUserViewModel> implements OnInit {
+export class UserEditComponent extends EditComponentBase<CreateUserViewModel> implements OnInit {
   /**
    * 确认密码
    */

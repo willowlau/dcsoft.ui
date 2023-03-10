@@ -1,5 +1,5 @@
 ﻿import { Component, Injector } from '@angular/core';
-import { DrawerEditComponentBase } from '@dcsoft/util';
+import { EditComponentBase } from '@dcsoft/util';
 
 import { TasksQzViewModel } from './model/tasksQz-view-model';
 
@@ -10,7 +10,7 @@ import { TasksQzViewModel } from './model/tasksQz-view-model';
   selector: 'app-tasksQz-detail',
   templateUrl: './html/detail.component.html'
 })
-export class TasksQzDetailComponent extends DrawerEditComponentBase<TasksQzViewModel> {
+export class TasksQzDetailComponent extends EditComponentBase<TasksQzViewModel> {
   /**
    * 初始化任务详情页
    *

@@ -1,5 +1,5 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
-import { TreeDrawerEditComponentBase } from '@dcsoft/util';
+import { TreeEditComponentBase } from '@dcsoft/util';
 
 import { DepartmentViewModel } from './model/department-view-model';
 
@@ -10,7 +10,7 @@ import { DepartmentViewModel } from './model/department-view-model';
   selector: 'app-department-edit',
   templateUrl: './html/edit.component.html'
 })
-export class DepartmentEditComponent extends TreeDrawerEditComponentBase<DepartmentViewModel> implements OnInit {
+export class DepartmentEditComponent extends TreeEditComponentBase<DepartmentViewModel> implements OnInit {
   /**
    * 初始化模块编辑页
    *

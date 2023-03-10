@@ -158,11 +158,14 @@ export class UserLoginComponent extends ComponentBase implements OnInit, OnDestr
             expired: resp.accessTokenUtcExpires,
             refresh_token: resp.refreshToken
           });
-          let url = this.tokenService.referrer!.url || "/";
-          if (url.includes("/passport")) {
-            url = "/";
-          }
-          this.router.navigateByUrl(url);
+          // 重新获取 StartupService 内容，我们始终认为应用信息一般都会受当前用户授权范围而影响
+          this.startupSrv.loadAppData(`systems/user/app-data`).subscribe(() => {
+            let url = this.tokenService.referrer!.url || '/';
+            if (url.includes('/passport')) {
+              url = '/';
+            }
+            this.router.navigateByUrl(url);
+          });
         },
         fail: resp => {
           this.loadCaptcha();
@@ -223,5 +226,5 @@ export class UserLoginComponent extends ComponentBase implements OnInit, OnDestr
     // });
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void { }
 }

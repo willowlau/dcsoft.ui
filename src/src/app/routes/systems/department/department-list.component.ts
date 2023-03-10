@@ -32,31 +32,31 @@ export class DepartmentListComponent extends TreeTableQueryComponentBase<Departm
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
+  override getCreateTitle() {
     return '创建部门';
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
+  override getEditTitle() {
     return '编辑部门';
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
+  override getDetailTitle() {
     return '部门详情';
   }
   /**
    * 获取创建弹出层组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return DepartmentEditComponent;
   }
   /**
    * 获取创建弹出层数据
    */
-  override getCreateDrawerData(data?: any): any {
+  override getCreateData(data?: any): any {
     return {
       parent: data
     };
@@ -64,7 +64,7 @@ export class DepartmentListComponent extends TreeTableQueryComponentBase<Departm
   /**
    * 获取更新弹出框数据
    */
-  override getEditDrawerData(data: any): any {
+  override getEditData(data: any): any {
     if (!data) {
       return null;
     }
@@ -76,13 +76,13 @@ export class DepartmentListComponent extends TreeTableQueryComponentBase<Departm
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return DepartmentDetailComponent;
   }
   /**
    * 获取弹出框宽度
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '600px';
   }
 }

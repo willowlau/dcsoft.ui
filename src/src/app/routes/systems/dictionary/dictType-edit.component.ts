@@ -1,5 +1,5 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
-import { TreeDrawerEditComponentBase } from '@dcsoft/util';
+import { TreeEditComponentBase } from '@dcsoft/util';
 
 import { DictTypeViewModel } from './model/dictType-view-model';
 
@@ -10,7 +10,7 @@ import { DictTypeViewModel } from './model/dictType-view-model';
   selector: 'app-dictionary-edit',
   templateUrl: './html/dictType-edit.component.html'
 })
-export class DictTypeEditComponent extends TreeDrawerEditComponentBase<DictTypeViewModel> implements OnInit {
+export class DictTypeEditComponent extends TreeEditComponentBase<DictTypeViewModel> implements OnInit {
   /**
    * 初始化字典编辑页
    *

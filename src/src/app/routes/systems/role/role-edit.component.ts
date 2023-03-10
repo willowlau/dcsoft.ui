@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { DrawerEditComponentBase } from '@dcsoft/util';
+import { EditComponentBase } from '@dcsoft/util';
 
 import { RoleViewModel } from './model/role-view-model';
 
@@ -10,7 +10,7 @@ import { RoleViewModel } from './model/role-view-model';
   selector: 'role-edit',
   templateUrl: './html/edit.component.html'
 })
-export class RoleEditComponent extends DrawerEditComponentBase<RoleViewModel> {
+export class RoleEditComponent extends EditComponentBase<RoleViewModel> {
   /**
    * 初始化角色编辑页
    *

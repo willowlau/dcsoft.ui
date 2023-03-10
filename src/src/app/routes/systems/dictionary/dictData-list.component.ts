@@ -64,7 +64,7 @@ export class DictDataListComponent extends TreeTableQueryComponentBase<DictDataV
   /**
    * 获取创建弹出层数据
    */
-  override getCreateDrawerData(data?: any): any {
+  override getCreateData(data?: any): any {
     data.parentName = this.parent.name;
     data.type = this.parent.code;
     return {
@@ -75,13 +75,13 @@ export class DictDataListComponent extends TreeTableQueryComponentBase<DictDataV
   /**
    * 获取创建弹出框组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return DictDataEditComponent;
   }
   /**
    * 获取编辑抽屉数据
    */
-  override getEditDrawerData(data: any): any {
+  override getEditData(data: any): any {
     data.parentName = data.parentName ? data.parentName : this.parent.name;
     data.type = data.type ? data.type : this.parent.code;
     return {
@@ -94,37 +94,37 @@ export class DictDataListComponent extends TreeTableQueryComponentBase<DictDataV
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
+  override getCreateTitle() {
     return '创建字典数据';
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
+  override getEditTitle() {
     return '编辑字典数据';
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
+  override getDetailTitle() {
     return '字典数据详情';
   }
   /**
    * 获取更新弹出框组件
    */
-  override getEditDrawerComponent(): any {
+  override getEditComponent(): any {
     return DictDataEditComponent;
   }
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return DictDataDetailComponent;
   }
   /**
    * 获取弹出框宽度，默认值：60%
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '600px';
   }
 }

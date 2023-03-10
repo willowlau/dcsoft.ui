@@ -34,7 +34,7 @@ export class DictTypeListComponent extends TableQueryComponentBase<DictTypeViewM
   /**
    * 获取创建弹出层数据
    */
-  override getCreateDrawerData(data?: any): any {
+  override getCreateData(data?: any): any {
     return {
       parent: data
     };
@@ -42,45 +42,45 @@ export class DictTypeListComponent extends TableQueryComponentBase<DictTypeViewM
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
+  override getCreateTitle() {
     return '创建字典类型';
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
+  override getEditTitle() {
     return '编辑字典类型';
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
+  override getDetailTitle() {
     return '字典类型详情';
   }
   /**
    * 获取创建弹出框组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return DictTypeEditComponent;
   }
   /**
    * 获取更新弹出框组件
    */
-  override getEditDrawerComponent(): any {
+  override getEditComponent(): any {
     return DictTypeEditComponent;
   }
 
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return DictTypeDetailComponent;
   }
 
   /**
    * 获取弹出框宽度，默认值：60%
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '600px';
   }
 

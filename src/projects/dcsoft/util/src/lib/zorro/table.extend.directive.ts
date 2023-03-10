@@ -28,7 +28,7 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
     /**
      * 是否显示进度条
      */
-    loading: boolean;
+    loading: boolean = false;
     /**
      * 总行数
      */
@@ -49,10 +49,6 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
      * 查询延迟
      */
     @Input() timeout;
-    /**
-     * 查询延迟间隔，单位：毫秒，默认500
-     */
-    @Input() delay: number;
     /**
      * 数据源
      */
@@ -111,8 +107,7 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
         this.selectedSelection = new SelectionModel<TModel>(false, []);
         this.pageSizeOptions = config.table.pageSizeOptions;
         this.autoLoad = true;
-        this.delay = 500;
-        this.tableSize = 'middle';
+        this.tableSize = 'default';
     }
 
     /**
@@ -129,6 +124,7 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
      */
     ngOnInit() {
         setTimeout(() => {
+            this.queryParam = this.queryParam || new QueryParameter();
             this.initPageSize();
             this.initOrder();
             if (this.autoLoad)
@@ -157,6 +153,8 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
      * 获取勾选的实体列表
      */
     getChecked(): TModel[] {
+        if (!this.dataSource)
+            return [];
         return this.dataSource.filter(data => this.checkedSelection.isSelected(data));
     }
 
@@ -651,10 +649,10 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
     sort(order: string) {
         if (order)
             this.queryParam.order = order;
-        else 
+        else
             this.queryParam.order = this.order;
         this.query();
-    }    
+    }
 
     /**
      * 表头主复选框切换选中状态

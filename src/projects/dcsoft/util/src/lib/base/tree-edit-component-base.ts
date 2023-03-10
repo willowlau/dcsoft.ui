@@ -13,7 +13,7 @@ import { EditComponentBase } from "./edit-component-base";
 @Component({
     template: ''
 })
-export abstract class TreeDialogEditComponentBase<TViewModel extends TreeViewModel> extends EditComponentBase<TViewModel> implements OnInit {
+export abstract class TreeEditComponentBase<TViewModel extends TreeViewModel> extends EditComponentBase<TViewModel> implements OnInit {
     /**
      * 父节点
      */
@@ -33,13 +33,6 @@ export abstract class TreeDialogEditComponentBase<TViewModel extends TreeViewMod
     ngOnInit() {
         super.ngOnInit();
         this.initParent();
-    }
-
-    /**
-     * 关闭抽屉框
-     */
-    close(result?: boolean): void {
-      this.util.dialog.close(result);
     }
 
     /**
@@ -89,47 +82,15 @@ export abstract class TreeDialogEditComponentBase<TViewModel extends TreeViewMod
     protected onLoad(result) {
         this.setParent(this.getParent());
     }
-
-    /**
-     * 提交表单
-     * @param button 按钮
-     * @param form 表单
-     */
-    submit(button?, form?: NgForm) {
-        this.util.form.submit({
-            url: this.getSubmitUrl(),
-            data: this.model,
-            form: form || this.form,
-            button: button,
-            closeDialog: true,
-            before: data => this.onSubmitBefore(data),
-            ok: result => this.onSubmit(result)
-        });
-    }
-
-    /**
-     * 提交前操作
-     * @param data 参数
-     * @returns 布尔值
-     */
-    protected onSubmitBefore(data: any): boolean {
-      return true;
-    }
-  
-    /**
-     * 提交后操作
-     * @param result 结果
-     */
-    protected onSubmit(result: any): void {}
-  
+    
     /**
      * 打开选择框
      */
     openSelectDialog(): void {
       this.util.dialog.open({
-        component: this.getSelectDialogComponent(),
+        component: this.getSelectComponent(),
         data: this.getSelectDialogData(),
-        width: this.getSelectDialogWidth(),
+        width: this.getSelectWidth(),
         showMask: false,
         disableClose: false,
         onOpenBefore: () => {
@@ -150,7 +111,7 @@ export abstract class TreeDialogEditComponentBase<TViewModel extends TreeViewMod
     /**
      * 获取选择框组件
      */
-    protected getSelectDialogComponent(): any {
+    protected getSelectComponent(): any {
       return {};
     }
   
@@ -164,7 +125,7 @@ export abstract class TreeDialogEditComponentBase<TViewModel extends TreeViewMod
     /**
      * 获取选择框宽度,默认值：60%
      */
-    protected getSelectDialogWidth(): string {
+    protected getSelectWidth(): string {
       return '60%';
     }
   

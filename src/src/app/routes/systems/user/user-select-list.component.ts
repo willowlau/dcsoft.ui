@@ -30,13 +30,13 @@ export class UserSelectListComponent extends TableQueryComponentBase<UserViewMod
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDialogComponent(): any {
+  override getDetailComponent(): any {
     return UserDetailComponent;
   }
   /**
    * 获取弹出层宽度
    */
-  override getDialogWidth(): string {
+  override getWidth(): string {
     return '600px';
   }
 }

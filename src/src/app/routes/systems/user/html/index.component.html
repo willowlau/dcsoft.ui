@@ -49,7 +49,7 @@
   <nz-card nzTitle="{{'util.tableTitle' | i18n}}" [nzBordered]="false" [nzExtra]="operatorActionTpl"
     [nzBodyStyle]="{ 'padding-top': '0px' }">
     <ng-template #operatorActionTpl>
-      <button (click)="openCreateDrawer()" class="mr-sm" nz-button nzType="primary">
+      <button (click)="openCreateDialog()" class="mr-sm" nz-button nzType="primary">
         <i nz-icon nzType="plus"></i>{{'util.create'|i18n}}
       </button>
       <ng-container *ngIf="getCheckedLength() > 0">
@@ -69,8 +69,8 @@
       </span>
       <nz-dropdown-menu #menu="nzDropdownMenu">
         <ul nz-menu nzSelectable>
-          <li nz-menu-item (click)="setSise('default')">{{'util.tableSizeDefault'|i18n}}</li>
-          <li nz-menu-item nzSelected (click)="setSise('middle')">{{'util.tableSizeMiddle'|i18n}}</li>
+          <li nz-menu-item nzSelected (click)="setSise('default')">{{'util.tableSizeDefault'|i18n}}</li>
+          <li nz-menu-item (click)="setSise('middle')">{{'util.tableSizeMiddle'|i18n}}</li>
           <li nz-menu-item (click)="setSise('small')">{{'util.tableSizeSmall'|i18n}}</li>
         </ul>
       </nz-dropdown-menu>
@@ -130,9 +130,9 @@
           <td>{{ row.loginCount }}</td>
           <td>{{ row.creationTime | date: 'yyyy-MM-dd' }}</td>
           <td>
-            <a (click)="openEditDrawer(row)" nz-tooltip nzTooltipTitle="{{'util.updateTooltip'|i18n}}" class="mr-sm"><i
+            <a (click)="openEditDialog(row)" nz-tooltip nzTooltipTitle="{{'util.updateTooltip'|i18n}}" class="mr-sm"><i
                 nz-icon nzType="edit" nzTheme="outline"></i> {{'util.update'|i18n}}</a>
-            <a (click)="openDetailDrawer(row)" nz-tooltip nzTooltipTitle="{{'util.detailTooltip'|i18n}}"
+            <a (click)="openDetailDialog(row)" nz-tooltip nzTooltipTitle="{{'util.detailTooltip'|i18n}}"
               class="mr-sm"><i nz-icon nzType="eye" nzTheme="outline"></i> {{'util.detail'|i18n}}</a>
             <a nz-dropdown [nzDropdownMenu]="menu"> {{'util.more'|i18n}}<i nz-icon nzType="down"></i></a>
             <nz-dropdown-menu #menu="nzDropdownMenu">

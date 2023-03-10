@@ -32,37 +32,37 @@ export class IdentityResourceListComponent extends TableQueryComponentBase<Ident
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
+  override getCreateTitle() {
     return '创建身份资源';
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
+  override getEditTitle() {
     return '编辑身份资源';
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
+  override getDetailTitle() {
     return '身份资源详情';
   }
   /**
    * 获取创建弹出框组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return IdentityResourceEditComponent;
   }
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return IdentityResourceDetailComponent;
   }
   /**
    * 获取弹出框宽度
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '600px';
   }
 }

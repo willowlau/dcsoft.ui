@@ -69,31 +69,31 @@ export class ModuleListComponent extends TreeTableQueryComponentBase<ModuleViewM
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
+  override getCreateTitle() {
     return '创建模块';
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
+  override getEditTitle() {
     return '编辑模块';
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
+  override getDetailTitle() {
     return '模块模块';
   }
   /**
    * 获取创建弹出层组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return ModuleEditComponent;
   }
   /**
    * 获取创建弹出层数据
    */
-  protected override getCreateDrawerData(data?: any): any {
+  protected override getCreateData(data?: any): any {
     return {
       parent: data,
       applicationId: this.selectedApplication.id,
@@ -113,7 +113,7 @@ export class ModuleListComponent extends TreeTableQueryComponentBase<ModuleViewM
   /**
    * 获取更新弹出框数据
    */
-  override getEditDrawerData(data: any): any {
+  override getEditData(data: any): any {
     if (!data) {
       return null;
     }
@@ -127,13 +127,13 @@ export class ModuleListComponent extends TreeTableQueryComponentBase<ModuleViewM
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return ModuleDetailComponent;
   }
   /**
    * 获取弹出框宽度
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '600px';
   }
 }

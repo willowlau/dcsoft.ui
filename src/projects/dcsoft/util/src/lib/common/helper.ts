@@ -46,6 +46,14 @@ export let isNumber = (value): boolean => {
 };
 
 /**
+ * 是否Promise类型
+ * @param obj 对象
+ */
+export function isPromise<T>(obj): obj is Promise<T> {
+  return !!obj && typeof obj.then === 'function' && typeof obj.catch === 'function';
+}
+
+/**
  * 转换为数值
  * @param value 输入值
  * @param precision 数值精度，即小数位数，可选值为0-20

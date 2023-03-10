@@ -38,43 +38,43 @@ export class UserListComponent extends TableQueryComponentBase<UserViewModel, Us
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
+  override getCreateTitle() {
     return '创建用户';
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
+  override getEditTitle() {
     return '编辑用户';
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
+  override getDetailTitle() {
     return '用户详情';
   }
   /**
    * 获取创建弹出框组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return UserEditComponent;
   }
   /**
    * 获取更新弹出框组件
    */
-  override getEditDrawerComponent(): any {
+  override getEditComponent(): any {
     return UserEditComponent;
   }
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return UserDetailComponent;
   }
   /**
    * 获取弹出层宽度
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '600px';
   }
   /**

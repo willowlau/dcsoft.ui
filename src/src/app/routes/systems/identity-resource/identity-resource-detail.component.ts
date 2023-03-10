@@ -1,5 +1,5 @@
 ﻿import { Component, Injector } from '@angular/core';
-import { DrawerEditComponentBase } from '@dcsoft/util';
+import { EditComponentBase } from '@dcsoft/util';
 
 import { IdentityResourceViewModel } from './model/identity-resource-view-model';
 
@@ -10,7 +10,7 @@ import { IdentityResourceViewModel } from './model/identity-resource-view-model'
   selector: 'app-identity-resource-detail',
   templateUrl: './html/detail.component.html'
 })
-export class IdentityResourceDetailComponent extends DrawerEditComponentBase<IdentityResourceViewModel> {
+export class IdentityResourceDetailComponent extends EditComponentBase<IdentityResourceViewModel> {
   /**
    * 初始化身份资源详情页
    *

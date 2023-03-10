@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { DrawerEditComponentBase } from '@dcsoft/util';
+import { EditComponentBase } from '@dcsoft/util';
 
 import { ApiResourceViewModel } from './model/api-resource-view-model';
 
@@ -10,7 +10,7 @@ import { ApiResourceViewModel } from './model/api-resource-view-model';
   selector: 'app-api-resource-edit',
   templateUrl: './html/edit.component.html'
 })
-export class ApiResourceEditComponent extends DrawerEditComponentBase<ApiResourceViewModel> {
+export class ApiResourceEditComponent extends EditComponentBase<ApiResourceViewModel> {
   /**
    * 初始化Api资源编辑页
    *

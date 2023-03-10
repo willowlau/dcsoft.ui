@@ -33,37 +33,37 @@ export class RoleListComponent extends TableQueryComponentBase<RoleViewModel, Ro
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
+  override getCreateTitle() {
     return '创建角色';
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
+  override getEditTitle() {
     return '编辑角色';
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
+  override getDetailTitle() {
     return '角色详情';
   }
   /**
    * 获取创建弹出框组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return RoleEditComponent;
   }
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return RoleDetailComponent;
   }
   /**
    * 获取弹出框宽度
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '500px';
   }
   /**

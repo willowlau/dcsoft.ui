@@ -43,12 +43,9 @@ export * from "./lib/base/component-base";
 export * from "./lib/base/query-component-base";
 export * from "./lib/base/table-query-component-base";
 export * from "./lib/base/edit-component-base";
-export * from "./lib/base/dialog-edit-component-base";
-export * from "./lib/base/drawer-edit-component-base";
 export * from "./lib/base/table-edit-component-base";
 export * from "./lib/base/tree-table-query-component-base";
-export * from "./lib/base/tree-dialog-edit-component-base";
-export * from "./lib/base/tree-drawer-edit-component-base";
+export * from "./lib/base/tree-edit-component-base";
 
 //导出ng-zorro
 export * from "./lib/zorro/table.extend.directive";

@@ -24,12 +24,12 @@ export class Ioc {
     get(token: any): any;
     get(token: any): any {
         if (this.componentInjector) {
-            let result = this.componentInjector.get(token, null, InjectFlags.Optional);
+            let result = this.componentInjector.get(token, null, { optional: true });
             if (result != null)
                 return result;
         }
         if (this.injector)
-            return this.injector.get(token, null, InjectFlags.Optional);
+            return this.injector.get(token, null, { optional: true });
         return null;
     }
 }

@@ -70,13 +70,13 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Co
      * @param id 标识
      */
     protected loadById(id?) {
-        if (this.onLoadBefore(id) === false)
-            return;       
         id = id || this.id || this.util.router.getParam("id");
         if (!id)
             return;
+        if (this.onLoadBefore(id) === false)
+            return;
         this.util.webapi.get<TViewModel>(this.getLoadUrl(id)).handle({
-            before: ()=> {
+            before: () => {
                 this.loading = true;
                 return true;
             },
@@ -86,7 +86,7 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Co
                 this.onLoad(model);
             },
             complete: () => {
-              this.loading = false;
+                this.loading = false;
             }
         });
     }
@@ -158,7 +158,11 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Co
             data: this.model,
             form: form || this.form,
             button: button,
-            back: true
+            back: this.isBack(),
+            closeDialog: this.isCloseDialog(),
+            closeDrawer: this.isCloseDrawer(),
+            before: data => this.onSubmitBefore(data),
+            ok: result => this.onSubmit(result)
         });
     }
 
@@ -188,9 +192,62 @@ export abstract class EditComponentBase<TViewModel extends ViewModel> extends Co
     }
 
     /**
+    * 提交完成是否返回路由,默认值: false,注意,不使用弹出框编辑时设置为true
+    */
+    protected isBack() {
+        return false;
+    }
+
+    /**
+     * 提交完成是否关闭弹出层,默认值: true
+     * @returns
+     */
+    protected isCloseDialog() {
+        return true;
+    }
+
+    /**
+     * 提交完成是否关闭抽屉,默认值: true
+     * @returns
+     */
+    protected isCloseDrawer() {
+        return true;
+    }
+
+    /**
+     * 提交前操作
+     * @param data 参数
+     */
+    protected onSubmitBefore(data) {
+        return true;
+    }
+
+    /**
+     * 提交后操作
+     * @param result 结果
+     */
+    protected onSubmit(result) {
+    }
+
+    /**
+     * 是否有效
+     */
+    isValid(): boolean {
+        return this.form && this.form.valid;
+    }
+
+    /**
      * 返回
      */
     back() {
         this.util.router.back();
+    }
+
+    /**
+     * 关闭
+     */
+    close() {
+        this.util.dialog.close();
+        this.util.drawer.close();
     }
 }

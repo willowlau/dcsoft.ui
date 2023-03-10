@@ -1,6 +1,6 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { TreeDrawerEditComponentBase } from '@dcsoft/util';
+import { TreeEditComponentBase } from '@dcsoft/util';
 
 import { DictDataViewModel } from './model/dictData-view-model';
 
@@ -11,7 +11,7 @@ import { DictDataViewModel } from './model/dictData-view-model';
   selector: 'app-dictionary-data-edit',
   templateUrl: './html/dictData-edit.component.html'
 })
-export class DictDataEditComponent extends TreeDrawerEditComponentBase<DictDataViewModel> implements OnInit {
+export class DictDataEditComponent extends TreeEditComponentBase<DictDataViewModel> implements OnInit {
   /**
    * 初始化字典编辑页
    *

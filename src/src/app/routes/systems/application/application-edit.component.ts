@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { DrawerEditComponentBase, SelectOption } from '@dcsoft/util';
+import { EditComponentBase, SelectOption } from '@dcsoft/util';
 
 import { ApplicationType } from './model/application-type';
 import { ApplicationViewModel } from './model/application-view-model';
@@ -11,7 +11,7 @@ import { ApplicationViewModel } from './model/application-view-model';
   selector: 'app-application-edit',
   templateUrl: './html/edit.component.html'
 })
-export class ApplicationEditComponent extends DrawerEditComponentBase<ApplicationViewModel> {
+export class ApplicationEditComponent extends EditComponentBase<ApplicationViewModel> {
   /**
    * 应用程序类型数据源
    */

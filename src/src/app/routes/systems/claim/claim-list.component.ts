@@ -32,43 +32,43 @@ export class ClaimListComponent extends TableQueryComponentBase<ClaimViewModel, 
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
-    return '创建声明';
+  override getCreateTitle() {
+    return `${this.util.i18n.get('util.create')}${this.util.i18n.get('app.systems.claim.title')}`;
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
-    return '编辑声明';
+  override getEditTitle() {
+    return `${this.util.i18n.get('util.update')}${this.util.i18n.get('app.systems.claim.title')}`;
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
-    return '声明详情';
+  override getDetailTitle() {
+    return `${this.util.i18n.get('util.detail')}${this.util.i18n.get('app.systems.claim.title')}`;
   }
   /**
    * 获取创建抽屉框组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return ClaimEditComponent;
   }
   /**
    * 获取更新抽屉框组件
    */
-  override getEditDrawerComponent(): any {
+  override getEditComponent(): any {
     return ClaimEditComponent;
   }
   /**
    * 获取详情抽屉框组伯
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return ClaimDetailComponent;
   }
   /**
    * 获取抽屉框宽度
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '500px';
   }
 }

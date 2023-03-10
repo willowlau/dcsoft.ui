@@ -32,43 +32,43 @@ export class TasksQzListComponent extends TableQueryComponentBase<TasksQzViewMod
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
+  override getCreateTitle() {
     return '创建任务';
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
+  override getEditTitle() {
     return '编辑任务';
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
+  override getDetailTitle() {
     return '任务详情';
   }
   /**
    * 获取创建抽屉框组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return TasksQzEditComponent;
   }
   /**
    * 获取更新抽屉框组件
    */
-  override getEditDrawerComponent(): any {
+  override getEditComponent(): any {
     return TasksQzEditComponent;
   }
   /**
    * 获取详情抽屉框组伯
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return TasksQzDetailComponent;
   }
   /**
    * 获取抽屉框宽度
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '500px';
   }
   /**

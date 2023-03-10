@@ -1,6 +1,6 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
 import { IconSelectComponent } from '@shared';
-import { TreeDrawerEditComponentBase } from '@dcsoft/util';
+import { TreeEditComponentBase } from '@dcsoft/util';
 
 import { ModuleViewModel } from './model/module-view-model';
 
@@ -11,7 +11,7 @@ import { ModuleViewModel } from './model/module-view-model';
   selector: 'app-module-edit',
   templateUrl: './html/edit.component.html'
 })
-export class ModuleEditComponent extends TreeDrawerEditComponentBase<ModuleViewModel> implements OnInit {
+export class ModuleEditComponent extends TreeEditComponentBase<ModuleViewModel> implements OnInit {
   /**
    * 应用程序标识
    */

@@ -1,5 +1,5 @@
 ﻿import { Component, Injector } from '@angular/core';
-import { DrawerEditComponentBase } from '@dcsoft/util';
+import { EditComponentBase } from '@dcsoft/util';
 
 import { ApplicationViewModel } from './model/application-view-model';
 
@@ -10,7 +10,7 @@ import { ApplicationViewModel } from './model/application-view-model';
   selector: 'app-application-detail',
   templateUrl: './html/detail.component.html'
 })
-export class ApplicationDetailComponent extends DrawerEditComponentBase<ApplicationViewModel> {
+export class ApplicationDetailComponent extends EditComponentBase<ApplicationViewModel> {
   /**
    * 初始化应用程序详情页
    *

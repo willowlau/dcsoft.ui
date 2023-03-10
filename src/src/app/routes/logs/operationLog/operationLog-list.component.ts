@@ -48,25 +48,25 @@ export class OperationLogListComponent extends TableQueryComponentBase<Operation
   /**
    * 获取创建弹出框组件
    */
-  override getCreateDialogComponent(): any {
+  override getCreateComponent(): any {
     return OperationLogDetailComponent;
   }
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDialogComponent(): any {
+  override getDetailComponent(): any {
     return OperationLogDetailComponent;
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDialogTitle() {
+  override getDetailTitle() {
     return '日志详情';
   }
   /**
    * 获取创建弹出层宽度
    */
-  override getDetailDialogWidth(): string {
+  override getDetailWidth(): string {
     return '900px';
   }
 }

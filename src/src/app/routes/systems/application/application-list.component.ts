@@ -32,37 +32,37 @@ export class ApplicationListComponent extends TableQueryComponentBase<Applicatio
   /**
    * 设置创建窗口标题
    */
-  override getCreateDrawerTitle() {
+  override getCreateTitle() {
     return '创建应用程序';
   }
   /**
    * 设置编辑窗口标题
    */
-  override getEditDrawerTitle() {
+  override getEditTitle() {
     return '编辑应用程序';
   }
   /**
    * 设置详情窗口标题
    */
-  override getDetailDrawerTitle() {
+  override getDetailTitle() {
     return '应用程序详情';
   }
   /**
    * 获取创建弹出框组件
    */
-  override getCreateDrawerComponent(): any {
+  override getCreateComponent(): any {
     return ApplicationEditComponent;
   }
   /**
    * 获取详情弹出框组件
    */
-  override getDetailDrawerComponent(): any {
+  override getDetailComponent(): any {
     return ApplicationDetailComponent;
   }
   /**
    * 获取弹出框宽度
    */
-  override getDrawerWidth(): string {
+  override getWidth(): string {
     return '700px';
   }
 }

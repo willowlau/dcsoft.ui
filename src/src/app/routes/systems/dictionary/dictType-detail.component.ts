@@ -1,5 +1,5 @@
 ﻿import { Component, Injector } from '@angular/core';
-import { DialogEditComponentBase } from '@dcsoft/util';
+import { EditComponentBase } from '@dcsoft/util';
 
 import { DictTypeViewModel } from './model/dictType-view-model';
 
@@ -10,7 +10,7 @@ import { DictTypeViewModel } from './model/dictType-view-model';
   selector: 'app-dictionary-detail',
   templateUrl: './html/dictType-detail.component.html'
 })
-export class DictTypeDetailComponent extends DialogEditComponentBase<DictTypeViewModel> {
+export class DictTypeDetailComponent extends EditComponentBase<DictTypeViewModel> {
   /**
    * 初始化字典详情页
    *

@@ -145,18 +145,15 @@ export class Form {
      * 成功处理函数
      */
     private okHandler(options: IFormSubmitOptions, result) {
-        options.ok && options.ok(result);
+        options.ok && options.ok( result );
         if (options.showMessage !== false)
             this.util.message.success(options.message || I18nKeys.succeeded);
+        result = result || "ok";        
+        if ( options.closeDialog )
+            this.util.dialog.close(result);
+        if (options.closeDrawer)
+            this.util.drawer.close(result);
         if (options.back)
             this.util.router.back();
-        if (options.closeDialog) {
-            result = result || "ok";
-            this.util.dialog.close(result);
-        }
-        if (options.closeDrawer) {
-            result = result || 'ok';
-            this.util.drawer.close(result);
-        }
     }
 }

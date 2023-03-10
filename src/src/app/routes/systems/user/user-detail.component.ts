@@ -1,5 +1,5 @@
 ﻿import { Component, Injector } from '@angular/core';
-import { DrawerEditComponentBase } from '@dcsoft/util';
+import { EditComponentBase } from '@dcsoft/util';
 
 import { UserViewModel } from './model/user-view-model';
 
@@ -10,7 +10,7 @@ import { UserViewModel } from './model/user-view-model';
   selector: 'app-user-detail',
   templateUrl: './html/detail.component.html'
 })
-export class UserDetailComponent extends DrawerEditComponentBase<UserViewModel> {
+export class UserDetailComponent extends EditComponentBase<UserViewModel> {
   /**
    * 初始化用户详情页
    *

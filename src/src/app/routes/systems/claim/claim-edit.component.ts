@@ -1,5 +1,5 @@
 import { Component, Injector } from '@angular/core';
-import { DrawerEditComponentBase } from '@dcsoft/util';
+import { EditComponentBase } from '@dcsoft/util';
 
 import { ClaimViewModel } from './model/claim-view-model';
 
@@ -10,7 +10,7 @@ import { ClaimViewModel } from './model/claim-view-model';
   selector: 'app-claim-edit',
   templateUrl: './html/edit.component.html'
 })
-export class ClaimEditComponent extends DrawerEditComponentBase<ClaimViewModel> {
+export class ClaimEditComponent extends EditComponentBase<ClaimViewModel> {
   /**
    * 初始化声明编辑页
    *
