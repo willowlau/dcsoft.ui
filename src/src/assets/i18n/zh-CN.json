@@ -69,6 +69,11 @@
     "idCardMessage": "请输入有效的身份证号",
     "rowsSelected": "已选择<strong class='text-primary mx-xs'>{{length}}</strong>行"
   },
+  "themes": {
+    "default": "默认主题",
+    "dark": "暗黑主题",
+    "compact": "紧凑主题"
+  },
   "app": {
     "home": "首页",
     "dashboard": {
@@ -289,7 +294,7 @@
       },
       "sys-msg": {
         "title": "系统消息",
-        "column":{
+        "column": {
           "name": "名称",
           "title": "标题",
           "content": "内容"
@@ -297,8 +302,7 @@
       },
       "sys-param": {
         "title": "系统参数",
-        "column":{
-        }
+        "column": {}
       },
       "user": {
         "title": "用户",
