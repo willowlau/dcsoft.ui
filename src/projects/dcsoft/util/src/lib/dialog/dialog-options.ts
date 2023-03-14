@@ -25,7 +25,7 @@ export interface IDialogOptions {
     /**
      * 是否垂直居中显示
      */
-    centered?:boolean,
+    centered?: boolean,
     /**
      * 标题
      */
@@ -105,12 +105,16 @@ export interface IDialogOptions {
     /**
      * 弹出层外层容器样式类名
      */
-    wrapClassName?:string,
+    wrapClassName?: string,
+    /**
+    * 自动聚焦及聚焦位置，为 null 时禁用,默认值: 'auto'
+    */
+    autofocus?: 'ok' | 'cancel' | 'auto' | null,
     /**
      * 点击确定按钮事件，返回 false 阻止关闭
      * @param instance 弹出层组件实例
      */
-    onOk?: ( instance ) => ( false | void | {} ) | Promise<false | void | {}>,
+    onOk?: (instance) => (false | void | {}) | Promise<false | void | {}>,
     /**
      * 打开前事件，返回 false 阻止弹出
      */
@@ -122,10 +126,10 @@ export interface IDialogOptions {
     /**
      * 关闭前事件，返回 false 阻止关闭
      */
-    onCloseBefore?: ( result ) => ( false | void | {} ) | Promise<false | void | {}>,
+    onCloseBefore?: (result) => (false | void | {}) | Promise<false | void | {}>,
     /**
      * 关闭后事件
      * @param result 返回结果
      */
-    onClose?: ( result ) => void;
+    onClose?: (result) => void;
 }

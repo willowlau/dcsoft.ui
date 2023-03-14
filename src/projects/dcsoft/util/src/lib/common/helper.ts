@@ -68,6 +68,14 @@ export let toNumber = (value, precision?, isTruncate?: boolean) => {
 };
 
 /**
+ * 将逗号分隔的字符串转换为数组
+ * @param value 输入值,范例: "a,b,c"
+ */
+export let toArray = <T>(value: string): T[] => {
+  return _lodash.split(value,',') as any;
+}
+
+/**
  * 转换为字符串
  * @param value 输入值
  */

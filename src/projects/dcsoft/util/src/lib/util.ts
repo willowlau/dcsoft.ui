@@ -21,6 +21,8 @@ import { Component } from "./common/component";
 import { AppConfig } from './config/app-config';
 import { DefaultConfig } from "./config/default-config";
 import { Store } from './common/store';
+import { ChangeDetector } from './common/change-detector';
+import { Event } from "./common/event";
 
 /**
  * 操作入口
@@ -82,6 +84,14 @@ export class Util {
      * 组件操作
      */
     private _component: Component;
+    /**
+     * 变更检测操作
+     */
+    private _changeDetector: ChangeDetector;
+    /**
+     * 事件操作
+     */
+    private _event: Event;
     /**
      * Store操作
      */
@@ -235,6 +245,24 @@ export class Util {
         if (!this._component)
             this._component = new Component(this);
         return this._component;
+    };
+    
+    /**
+     * 变更检测操作
+     */
+    get changeDetector() {
+        if (!this._changeDetector)
+            this._changeDetector = new ChangeDetector(this);
+        return this._changeDetector;
+    };
+
+    /**
+     * 事件操作
+     */
+    get event() {
+        if (!this._event)
+            this._event = new Event(this);
+        return this._event;
     };
 
     /**

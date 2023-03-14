@@ -46,10 +46,6 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
     */
     tableSize: NzTableSize;
     /**
-     * 查询延迟
-     */
-    @Input() timeout;
-    /**
      * 数据源
      */
     @Input() dataSource: any[];
@@ -251,13 +247,6 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
     }
 
     /**
-     * 清空勾选的行
-     */
-    clearChecked() {
-        this.checkedSelection.clear();
-    }
-
-    /**
      * 仅选中一行
      */
     selectRowOnly(row) {
@@ -270,6 +259,13 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
      */
     selectRow(row) {
         this.selectedSelection.select(row);
+    }
+
+    /**
+     * 清空勾选的行
+     */
+    clearChecked() {
+        this.checkedSelection.clear();
     }
 
     /**
@@ -316,6 +312,17 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
      */
     isMasterIndeterminate() {
         return this.checkedSelection.hasValue() && (!this.isAllChecked() || !this.dataSource.length);
+    }
+
+    /**
+     * 表头主复选框切换选中状态
+     */
+    masterToggle() {
+        if (this.isMasterChecked()) {
+            this.checkedSelection.clear();
+            return;
+        }
+        this.dataSource.forEach(data => this.checkedSelection.select(data));
     }
 
     /**
@@ -655,17 +662,6 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
     }
 
     /**
-     * 表头主复选框切换选中状态
-     */
-    masterToggle() {
-        if (this.isMasterChecked()) {
-            this.checkedSelection.clear();
-            return;
-        }
-        this.dataSource.forEach(data => this.checkedSelection.select(data));
-    }
-
-    /**
      * 添加行
      * @param row 行
      */
@@ -685,6 +681,17 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
     private initLineNumbers(data) {
         let result = new PageList<TModel>(data, this.queryParam.page, this.queryParam.pageSize);
         result.initLineNumbers();
+    }
+
+    /**
+     * 通过标识判断是否存在
+     * @param id 标识或对象
+     */
+    exists(id): boolean {
+        if (!id)
+            return false;
+        id = id.id || id;
+        return this.dataSource.some(item => item.id === id);
     }
 
     /**
@@ -708,80 +715,31 @@ export class TableExtendDirective<TModel extends IKey> implements OnInit {
     }
 
     /**
-     * 通过标识刷新
-     * @param options 配置
+     * 刷新单个实体
+     * @param model 实体对象
      */
-    refreshById(options?: {
-        /**
-         * 标识或单个对象
-         */
-        id?,
-        /**
-         * 请求地址
-         */
-        url?: string,
-        /**
-         * 请求前处理函数，返回false则取消提交
-         */
-        before?: () => boolean;
-        /**
-         * 请求成功处理函数
-         * @param result 结果
-         */
-        ok?: (result) => void;
-        /**
-         * 请求失败处理函数
-         */
-        fail?: (result: FailResult) => void;
-        /**
-         * 请求完成处理函数
-         */
-        complete?: () => void;
-    }) {
-        options = options || {};
-        if (options.id.id) {
-            this.refreshNode(options.id);
+    refreshByModel(model) {
+        if (this.exists(model)) {
+            this.refreshUpdateNode(model);
             return;
         }
-        let url = options.url || this.getUrl(this.loadByIdUrl, options.id) || this.getUrl(this.url, options.id);
-        if (!url)
-            return;
-        this.util.webapi.get<any>(url).handle({
-            before: () => {
-                this.loading = true;
-                if (options.before)
-                    return options.before();
-                return true;
-            },
-            ok: result => {
-                this.refreshNode(result);
-                options.ok && options.ok(result);
-            },
-            fail: options.fail,
-            complete: () => {
-                this.loading = false;
-                options.complete && options.complete();
-            }
-        });
+        this.query({ page:1 });
     }
 
     /**
-     * 刷新单个节点
-     * @param data 单个对象数据
+     * 刷新更新节点
+     * @param model 实体对象
      */
-    protected refreshNode(data) {
-        if (!data)
+    protected refreshUpdateNode(model) {
+        if (!model)
             return;
-        if (!data.id)
+        if (!model.id)
             return;
-        for (var i = 0; i < this.dataSource.length; i++) {
-            let item = this.dataSource[i];
-            if (item.id === data.id) {
-                let index = this.dataSource.indexOf(item);
-                data["lineNumber"] = item["lineNumber"];
-                this.dataSource[index] = data;
-                return;
-            }
-        }
+        let item = this.dataSource.find(t => t.id === model.id);
+        if (!item)
+            return;
+        model["lineNumber"] = item["lineNumber"];
+        let index = this.dataSource.indexOf(item);
+        this.dataSource[index] = model;
     }
 }
