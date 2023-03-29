@@ -17,10 +17,17 @@ export * from "./lib/core/load-mode";
 
 //导出config
 export * from "./lib/config/app-config";
+export * from "./lib/config/i18n-keys";
+
+//导出session
+export * from "./lib/common/session";
+
+//导出data
+export * from "./lib/data/data-container";
+export * from "./lib/data/data-loader";
 
 //导出dialog
 export * from "./lib/dialog/dialog-options";
-export * from "./lib/config/app-config";
 
 //导出drawer
 export * from "./lib/drawer/drawer-options";
@@ -58,6 +65,7 @@ export * from "./lib/zorro/select.extend.directive";
 export * from "./lib/zorro/radio.extend.directive";
 export * from "./lib/zorro/tree.table.extend.directive";
 export * from "./lib/zorro/tree.extend.directive";
+export * from "./lib/zorro/required.extend.directive";
 
 //导出tinymce
 export * from "./lib/tinymce/tinymce.extend.directive";

@@ -6,6 +6,7 @@ import { NzModalService, ModalOptions, NzModalRef } from "ng-zorro-antd/modal";
 import { isUndefined } from '../common/helper';
 import { IDialogOptions } from "./dialog-options";
 import { Util } from "../util";
+import { NzButtonType } from "ng-zorro-antd/button";
 
 /**
  * 弹出层操作
@@ -62,7 +63,7 @@ export class Dialog {
             nzCancelText: this.getCancelText(options),
             nzCancelLoading: options.cancelLoading,
             nzOkText: this.getOkText(options),
-            nzOkType: options.okType,
+            nzOkType: this.getOkType(options),
             nzOkDanger: options.okDanger,
             nzOkLoading: options.okLoading,
             nzClosable: isUndefined(options.showClose) ? true : options.showClose,
@@ -112,6 +113,15 @@ export class Dialog {
         if (options.showOk === false)
             return null;
         return options.okText;
+    }
+
+    /**
+    * 获取确定按钮类型
+    */
+    private getOkType(options: IDialogOptions): NzButtonType {
+        if (options.okType)
+            return options.okType;
+        return "primary";
     }
 
     /**

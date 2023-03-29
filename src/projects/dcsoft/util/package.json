@@ -4,9 +4,9 @@
   "author": "杨柳 <53619404@qq.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/willowlau/ng-util"
+    "url": "https://github.com/willowlau/dcsoft.ui"
   },
-  "homepage": "https://github.com/willowlau/ng-util",
+  "homepage": "https://github.com/willowlau/dcsoft.ui",
   "license": "MIT",
   "keywords": [
     "util",
@@ -20,15 +20,17 @@
     "publish": "npm publish --access public"
   },
   "peerDependencies": {
-    "@angular/common": "^15.1.0",
     "@angular/core": "^15.1.0",
+    "@angular/common": "^15.1.0",
+    "@angular/forms": "^15.1.0",
     "ng-zorro-antd": "^15.0.3",
-    "@delon/abc": "^15.0.1",
-    "@delon/theme": "^15.0.1",
-    "@delon/util": "^15.0.1",
-    "lodash": "~4.17.21",
-    "moment": "~2.29.4",
-    "ngx-tinymce": "^15.0.0"
+    "@delon/abc": "^15.1.0",
+    "@delon/theme": "^15.1.0",
+    "@delon/util": "^15.1.0",
+    "lodash-es": "~4.17.21",
+    "date-fns": "~2.29.3",
+    "ngx-tinymce": "^15.0.0",
+    "ng-event-bus": "~5.1.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

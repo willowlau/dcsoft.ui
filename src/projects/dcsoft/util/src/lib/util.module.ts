@@ -4,6 +4,7 @@
 //================================================
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { TableExtendDirective } from "./zorro/table.extend.directive";
 import { EditTableDirective } from "./zorro/edit-table.directive";
@@ -17,6 +18,7 @@ import { TreeTableExtendDirective } from "./zorro/tree.table.extend.directive";
 import { TreeExtendDirective } from "./zorro/tree.extend.directive";
 import { TinymceExtendDirective } from "./tinymce/tinymce.extend.directive";
 import { DrawerFooterComponent } from "./drawer/drawer-footer.component";
+import { RequiredExtendDirective } from "./zorro/required.extend.directive";
 
 /**
  * utilģ��
@@ -25,18 +27,18 @@ import { DrawerFooterComponent } from "./drawer/drawer-footer.component";
     declarations: [
         TableExtendDirective,
         EditTableDirective, EditRowDirective, EditControlDirective,
-        ButtonExtendDirective,
+        RequiredExtendDirective, ButtonExtendDirective,
         ValidationExtendDirective, SelectExtendDirective, RadioExtendDirective,
         TreeTableExtendDirective, TreeExtendDirective,
         TinymceExtendDirective, DrawerFooterComponent
     ],
     imports: [
-        CommonModule, NzButtonModule
+        CommonModule, FormsModule, NzButtonModule
     ],
     exports: [
         TableExtendDirective,
         EditTableDirective, EditRowDirective, EditControlDirective,
-        ButtonExtendDirective,
+        RequiredExtendDirective, ButtonExtendDirective,
         ValidationExtendDirective, SelectExtendDirective, RadioExtendDirective,
         TreeTableExtendDirective, TreeExtendDirective,
         TinymceExtendDirective

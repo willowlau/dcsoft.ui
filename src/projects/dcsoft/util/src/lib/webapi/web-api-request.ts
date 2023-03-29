@@ -4,6 +4,7 @@
 //=======================================================
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { I18nKeys } from "../config/i18n-keys";
 import { Result } from '../core/result';
 import { FailResult } from "../core/fail-result";
 import { StateCode } from "../core/state-code";
@@ -159,6 +160,13 @@ export class WebApiRequest<T> {
     }
 
     /**
+     * 获取请求客户端
+     */
+    getClient(): Observable<Result<T>> {
+        return this.request.request();
+    }
+
+    /**
      * 处理响应
      * @param options 响应处理器配置
      */
@@ -198,7 +206,22 @@ export class WebApiRequest<T> {
             options.ok && options.ok(result.data);
             return;
         }
+        if (result.code === StateCode.Unauthorized) {
+            this.handleUnauthorize(options);
+            return;
+        }
         this.handleFail(options, result);
+    }
+ 
+    /**
+     * 处理未授权响应
+     */
+    private handleUnauthorize(options: WebApiHandleOptions<T>) {
+        if (options.unauthorize) {
+            options.unauthorize();
+            return;
+        }
+        this.util.message.error(I18nKeys.unauthorizedMessage);
     }
 
     /**
@@ -288,5 +311,13 @@ export class WebApiRequest<T> {
         }
         if (this.isShowLoading)
             this.util.loading.close();
+    }
+
+    /**
+     * 下载文件
+     * @param fileName 文件名,包含扩展名,范例: a.png
+     */
+    download(fileName) {
+        this.request.download(fileName);
     }
 }

@@ -3,7 +3,7 @@
 //Licensed under the MIT license
 //================================================
 import { DES, enc, mode, pad } from "crypto-js";
-import _lodash from "lodash";
+import * as _lodash from "lodash-es";
 import * as _date from "date-fns";
 import { zhCN } from "date-fns/locale";
 import { UUID } from "./internal/uuid";
@@ -72,7 +72,7 @@ export let toNumber = (value, precision?, isTruncate?: boolean) => {
  * @param value 输入值,范例: "a,b,c"
  */
 export let toArray = <T>(value: string): T[] => {
-  return _lodash.split(value,',') as any;
+  return _lodash.split(value,',');
 }
 
 /**
@@ -461,6 +461,18 @@ export let toJson = (value): string => {
 export let toObjectFromJson = <T>(json: string): T => {
   return JSON.parse(json);
 };
+
+/**
+ * 将对象转换为url查询字符串,即?后面的参数
+ * @param obj 对象
+ */
+export let toQueryString = (obj): string => {
+  if (!obj)
+      return null;
+  return _lodash.toPairs(obj)
+      .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+      .join('&');
+}
 
 /**
  * 获取标识列表
